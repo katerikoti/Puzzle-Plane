@@ -17,8 +17,7 @@
     }
 
     .game-window {
-      background: white url('https://i.imgur.com/qJWLWD5.png') no-repeat center center;
-      background-size: cover;
+      background: white;
       border-radius: 25px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       max-width: 800px;
@@ -35,7 +34,6 @@
       bottom: 20px;
       left: 20px;
       z-index: 1;
-      cursor: pointer;
     }
 
     .boys-container img {
@@ -46,25 +44,24 @@
 
     .speech-bubble {
       position: absolute;
-      bottom: 250px;
+      bottom: 300px;
       left: 40px;
       background: white;
       border: 2px solid black;
       border-radius: 12px;
       padding: 12px 16px;
-      max-width: 350px;
+      max-width: 150px;
       font-size: 1rem;
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 2;
-      display: block; /* hidden initially */
     }
 
     .speech-bubble::after {
       content: "";
       position: absolute;
       bottom: -20px;
-      left: 30px;
+      left: 40px;
       width: 0;
       height: 0;
       border-left: 12px solid transparent;
@@ -77,56 +74,31 @@
       content: "";
       position: absolute;
       bottom: -18px;
-      left: 32px;
+      left: 42px;
       width: 0;
       height: 0;
       border-left: 10px solid transparent;
       border-right: 10px solid transparent;
       border-top: 18px solid white;
-      
-      .checklist {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-  gap: 16px;
-}
-
-.column {
-  display: flex;
-  flex-direction: column;
-}
     }
   </style>
 </head>
 <body>
 
   <div class="game-window">
-    <div class="boys-container" onclick="toggleBubble()">
+    <div class="boys-container">
       <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
     </div>
 
-  <div class="speech-bubble">
-  <strong>Help us pack for our trip to grandma’s!</strong>
-  <div class="checklist">
-    <div class="column">
-      <p>1. Lion plushie</p>
-      <p>2. Bunny plushie</p>
-      <p>3. Blue shoes</p>
-    </div>
-    <div class="column">
-      <p>4. Red shoes</p>
-      <p>5. Water bottles</p>
-      <p>6. Gift for our cousin</p>
+    <div class="speech-bubble">
+      Help us pack for our trip to grandma’s! Find:
+      1. Lion-plushie
+      2. Bunny-plushie
+      3. Shoes
+      4. Water bottles
+      5. Gift for our cousin
     </div>
   </div>
-</div>
-
-  <script>
-    function toggleBubble() {
-      const bubble = document.getElementById('speechBubble');
-      bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
-    }
-  </script>
 
 </body>
 </html>
