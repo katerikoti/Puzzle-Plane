@@ -1,130 +1,85 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Puzzle Plane</title>
   <style>
     body {
       margin: 0;
-      background: #87ceeb;
+      padding: 0;
+      background-color: #87ceeb; /* sky blue */
       font-family: 'Comic Sans MS', cursive, sans-serif;
       text-align: center;
-      user-select: none;
     }
 
     h1 {
-      color: white;
+      color: #fff;
+      margin-top: 20px;
       font-size: 3em;
-      margin: 20px 0 10px;
-      text-shadow: 2px 2px 5px #004466;
+      text-shadow: 2px 2px 5px #00000066;
     }
 
-    .intro {
-      color: white;
+    p.intro {
+      color: #fff;
       font-size: 1.2em;
       margin-bottom: 30px;
-      text-shadow: 1px 1px 2px #003344;
     }
 
-    .svg-wrapper {
-      max-width: 1000px;
+    .plane-container {
+      position: relative;
+      max-width: 900px;
       margin: 0 auto;
     }
 
-    svg {
+    .plane-img {
       width: 100%;
       height: auto;
+      display: block;
     }
 
-    /* Oval windows */
-    .window {
-      fill: #ffffff;
-      stroke: #666;
-      stroke-width: 3;
-      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><rect width="32" height="24" rx="6" ry="6" fill="%23008080"/><text x="16" y="18" font-size="14" fill="white" font-family="Arial" font-weight="bold" text-anchor="middle">✈</text></svg>') 16 12, pointer;
-      transition: fill 0.3s ease;
+    .window-btn {
+      position: absolute;
+      width: 7%;
+      height: 12%;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: 2px solid transparent;
+      transition: all 0.3s ease;
     }
 
-    .window:hover {
-      fill: #b0ffb0;
-    }
-
-    .coming-soon {
-      fill: #dddddd;
-      stroke: #999;
-      cursor: default;
-      pointer-events: none;
-    }
-
-    .label {
-      font-size: 12px;
-      fill: black;
-      text-anchor: middle;
-      user-select: none;
+    .window-btn:hover {
+      border-color: #4CAF50;
+      background-color: rgba(255, 255, 255, 0.3);
     }
   </style>
 </head>
 <body>
+
   <h1>Puzzle Plane</h1>
-  <p class="intro">Choose a window to start your puzzle adventure!</p>
+  <p class="intro">Click a window to begin your journey!</p>
 
-  <div class="svg-wrapper">
-    <svg viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Cartoon airplane with 5 windows">
-      <!-- Plane body -->
-      <rect x="150" y="140" rx="70" ry="70" width="700" height="100" fill="#e0e0e0" />
-      <!-- Nose cone -->
-      <polygon points="850,140 950,180 850,240" fill="#c0c0c0"/>
-      <!-- Tail -->
-      <rect x="90" y="160" width="40" height="60" fill="#bbb" rx="15" ry="15" />
-      <!-- Wings -->
-      <polygon points="350,120 500,100 520,130 370,150" fill="#bbb" />
-      <polygon points="530,210 680,190 700,220 550,240" fill="#bbb" />
+  <div class="plane-container">
+    <img src="https://i.imgur.com/oD6JtaC.png" alt="Puzzle Plane" class="plane-img" />
 
-      <!-- Windows (oval) -->
-      <!-- Window 1 (clickable) -->
-      <a href="#" id="start-window" aria-label="Start Grandma Game Window" tabindex="0">
-        <ellipse class="window" cx="300" cy="190" rx="35" ry="22" />
-      </a>
-
-      <!-- Windows 2-5 (coming soon) -->
-      <ellipse class="window coming-soon" cx="430" cy="190" rx="35" ry="22" />
-      <ellipse class="window coming-soon" cx="560" cy="190" rx="35" ry="22" />
-      <ellipse class="window coming-soon" cx="690" cy="190" rx="35" ry="22" />
-      <ellipse class="window coming-soon" cx="820" cy="190" rx="35" ry="22" />
-
-      <!-- Labels -->
-      <text class="label" x="300" y="230">Start!</text>
-      <text class="label" x="430" y="230">Coming Soon</text>
-      <text class="label" x="560" y="230">Coming Soon</text>
-      <text class="label" x="690" y="230">Coming Soon</text>
-      <text class="label" x="820" y="230">Coming Soon</text>
-    </svg>
+    <!-- Window overlays (adjust positions if needed) -->
+    <div class="window-btn" style="top: 42%; left: 24%;" onclick="startGame(1)"></div>
+    <div class="window-btn" style="top: 42%; left: 38%;" onclick="startGame(2)"></div>
+    <div class="window-btn" style="top: 42%; left: 51%;" onclick="startGame(3)"></div>
+    <div class="window-btn" style="top: 42%; left: 64%;" onclick="startGame(4)"></div>
+    <div class="window-btn" style="top: 42%; left: 77%;" onclick="startGame(5)"></div>
   </div>
 
-  <!-- Airplane sound audio -->
-  <audio id="airplane-sound" src="https://actions.google.com/sounds/v1/transportation/airplane_flyby.ogg" preload="auto"></audio>
-
   <script>
-    const startWindow = document.getElementById('start-window');
-    const airplaneSound = document.getElementById('airplane-sound');
-
-    startWindow.addEventListener('click', (e) => {
-      e.preventDefault();
-      airplaneSound.play();
-      // Wait for sound to finish or ~2 seconds, then navigate
-      setTimeout(() => {
-        window.location.href = 'grandma-game.html';
-      }, 2000);
-    });
-
-    // Accessibility: also start on Enter keypress
-    startWindow.addEventListener('keydown', (e) => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        startWindow.click();
+    function startGame(number) {
+      if (number === 1) {
+        window.location.href = "grandma-game.html"; // Replace with actual game URL
+      } else {
+        alert("This window is not unlocked yet!");
       }
-    });
+    }
   </script>
+
 </body>
 </html>
