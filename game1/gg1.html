@@ -116,6 +116,9 @@ background: rgba(255, 255, 255, 0.8);      border: 1px solid rgba(0,0,0,0.5);
       content: "☑ ";
       color: green;
     }
+    .checklist-item.checked {
+  color: green; /* This makes the text green too */
+}
 
     .checklist-item::before {
       content: "☐ ";
@@ -123,16 +126,15 @@ background: rgba(255, 255, 255, 0.8);      border: 1px solid rgba(0,0,0,0.5);
     }
 
     /* Hidden clickable red squares */
-   .hidden-item {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  opacity: 0;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 5;
-}
+    .hidden-item {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      opacity: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 5;
       /* Initially visible for testing, you can toggle display:none after testing */
     }
 
@@ -160,7 +162,7 @@ background: rgba(255, 255, 255, 0.8);      border: 1px solid rgba(0,0,0,0.5);
     <div class="hidden-item item1" data-item="Bunny plushie" title="Bunny plushie"></div>
     <div class="hidden-item item2" data-item="Red shoes" title="Red shoes"></div>
     <div class="hidden-item item3" data-item="Clothes" title="Clothes"></div>
-    <div class="hidden-item item4" data-item="Water bottle" title="Water bottle"></div>
+    <div class="hidden-item item4" data-item="Green bottle" title="Green bottle"></div>
     <div class="hidden-item item5" data-item="Gift for cousin" title="Gift for cousin"></div>
 
     <!-- Small checklist bottom right -->
@@ -169,7 +171,7 @@ background: rgba(255, 255, 255, 0.8);      border: 1px solid rgba(0,0,0,0.5);
       <div class="checklist-item" data-item="Bunny plushie">Bunny plushie</div>
       <div class="checklist-item" data-item="Red shoes">Red shoes</div>
       <div class="checklist-item" data-item="Clothes">Clothes</div>
-      <div class="checklist-item" data-item="Water bottle">Water bottle</div>
+      <div class="checklist-item" data-item="Green bottle">Green bottle</div>
       <div class="checklist-item" data-item="Gift for cousin">Gift for cousin</div>
     </div>
   </div>
