@@ -3,237 +3,53 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Train Math Journey</title>
+  <title>Train Math Game</title>
   <style>
-    /* Reuse your previous .game-window styles */
     html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
+      margin: 0; padding: 0; height: 100%;
       font-family: Arial, sans-serif;
       background: #e0f7fa;
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     .game-window {
-      background: white;
+      width: 95vw;
+      max-width: 800px;
+      height: 500px;
+      background: url('https://i.imgur.com/CcEGT8w.jpeg') no-repeat center center;
+      background-size: cover;
       border-radius: 25px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      max-width: 800px;
-      width: 95vw;
-      min-height: 500px;
-      padding: 30px 20px;
-      box-sizing: border-box;
-      position: relative;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-    }
-
-    /* Your map and other styles below */
-    #map {
-      position: relative;
-      width: 100%;
-      height: 300px;
-      background: #cce7ff;
-      border: 3px solid #004080;
-      border-radius: 15px;
-      margin-bottom: 20px;
-      user-select: none;
-      max-width: 760px; /* slightly smaller to fit padding */
-    }
-
-    /* Stations and train styles same as before */
-    /* ... include station, label, train styling here ... */
-    
-    /* Stations */
-    .station {
-      position: absolute;
-      background: white;
-      border: 2px solid #004080;
-      border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 12px;
-      font-weight: bold;
-      color: #004080;
-      cursor: default;
-    }
-
-    .station-label {
-      position: absolute;
-      font-size: 14px;
-      font-weight: bold;
-      color: #004080;
-      white-space: nowrap;
-      user-select: none;
-    }
-
-    /* Train icon */
-    #train {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: url('https://i.imgur.com/6qQFxXo.png') no-repeat center center;
-      background-size: contain;
-      top: 115px; /* Starting near Joensuu */
-      left: 40px;
-      transition: top 1s ease, left 1s ease;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    #question-container {
-      margin-bottom: 20px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #004080;
-    }
-
-    #answer-input {
-      font-size: 18px;
-      padding: 6px 10px;
-      width: 100px;
-      margin-right: 10px;
-      border-radius: 6px;
-      border: 2px solid #004080;
-    }
-
-    #submit-btn {
-      font-size: 18px;
-      padding: 6px 14px;
-      border: none;
-      border-radius: 6px;
-      background-color: #004080;
+      justify-content: flex-end;
+      padding: 20px;
+      box-sizing: border-box;
       color: white;
-      cursor: pointer;
+      text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+      user-select: none;
     }
 
-    #submit-btn:hover {
-      background-color: #003060;
-    }
-
-    #feedback {
-      margin-top: 10px;
-      height: 24px;
-      font-weight: bold;
+    #math-problem {
+      background: rgba(0,0,0,0.5);
+      border-radius: 12px;
+      padding: 15px 20px;
+      font-size: 1.4rem;
+      text-align: center;
+      min-height: 70px;
     }
 
   </style>
 </head>
 <body>
+
   <div class="game-window">
-    <h1>Train Math Journey: Joensuu → Helsinki Airport</h1>
-
-    <div id="map">
-      <!-- Stations and labels here -->
-      <div class="station" id="station-0">J</div>
-      <div class="station-label" id="label-0">Joensuu</div>
-      <!-- Add the rest as before -->
-
-      <!-- Train -->
-      <div id="train"></div>
+    <div id="math-problem">
+      Solve this: <span id="problem-text">5 + 3 = ?</span>
     </div>
-
-    <div id="question-container">
-      Solve: <span id="question"></span>
-    </div>
-
-    <input type="number" id="answer-input" placeholder="Your answer" />
-    <button id="submit-btn">Submit</button>
-
-    <div id="feedback"></div>
   </div>
 
-  <script>
-    // Your JS logic from before goes here (stations array, moveTrainTo, question generation, etc.)
-
-    const stations = [
-      {top: 130, left: 50},
-      {top: 120, left: 130},
-      {top: 100, left: 210},
-      {top: 90,  left: 290},
-      {top: 140, left: 370},
-      {top: 180, left: 450},
-      {top: 210, left: 530},
-      {top: 150, left: 610},
-      {top: 110, left: 690},
-      {top: 90,  left: 750},
-      {top: 150, left: 780}
-    ];
-
-    let currentStep = 0;
-    const train = document.getElementById('train');
-    const questionEl = document.getElementById('question');
-    const answerInput = document.getElementById('answer-input');
-    const submitBtn = document.getElementById('submit-btn');
-    const feedback = document.getElementById('feedback');
-
-    moveTrainTo(currentStep);
-
-    function generateQuestion() {
-      const a = Math.floor(Math.random() * 10) + 1;
-      const b = Math.floor(Math.random() * 10) + 1;
-      const op = Math.random() > 0.5 ? '+' : '-';
-      let questionText, answer;
-
-      if (op === '+') {
-        questionText = `${a} + ${b}`;
-        answer = a + b;
-      } else {
-        if (a < b) {
-          questionText = `${b} - ${a}`;
-          answer = b - a;
-        } else {
-          questionText = `${a} - ${b}`;
-          answer = a - b;
-        }
-      }
-      return { questionText, answer };
-    }
-
-    let currentQuestion = generateQuestion();
-    questionEl.textContent = currentQuestion.questionText;
-
-    submitBtn.addEventListener('click', () => {
-      const userAnswer = parseInt(answerInput.value);
-      if (isNaN(userAnswer)) {
-        feedback.textContent = "Please enter a number.";
-        return;
-      }
-      if (userAnswer === currentQuestion.answer) {
-        feedback.style.color = 'green';
-        feedback.textContent = "Correct!";
-        currentStep++;
-        if (currentStep >= stations.length) {
-          feedback.textContent = "You've reached Helsinki Airport!";
-          setTimeout(() => {
-            window.location.href = "next-page.html"; // update your next page URL
-          }, 1500);
-          submitBtn.disabled = true;
-          answerInput.disabled = true;
-          return;
-        }
-        moveTrainTo(currentStep);
-        currentQuestion = generateQuestion();
-        questionEl.textContent = currentQuestion.questionText;
-        answerInput.value = '';
-      } else {
-        feedback.style.color = 'red';
-        feedback.textContent = "Try again!";
-      }
-    });
-
-    function moveTrainTo(step) {
-      const pos = stations[step];
-      train.style.top = pos.top + 'px';
-      train.style.left = pos.left + 'px';
-    }
-  </script>
 </body>
 </html>
