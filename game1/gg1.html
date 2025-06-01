@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Game Start</title>
+  <title>Pack for Grandma's</title>
   <style>
     html, body {
       margin: 0;
@@ -23,8 +23,8 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       max-width: 800px;
       width: 95vw;
-      min-height: 500px;
-      padding: 30px 20px;
+      min-height: 550px;
+      padding: 20px;
       box-sizing: border-box;
       position: relative;
       overflow: hidden;
@@ -34,19 +34,19 @@
       position: absolute;
       bottom: 10px;
       left: 10px;
-      z-index: 1;
+      z-index: 2;
       cursor: pointer;
     }
 
     .boys-container img {
-      width: 200px;
+      width: 180px;
       height: auto;
       border-radius: 8px;
     }
 
     .speech-bubble {
       position: absolute;
-      bottom: 300px;
+      bottom: 260px;
       left: 40px;
       background: white;
       border: 2px solid black;
@@ -56,8 +56,8 @@
       font-size: 1rem;
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-      z-index: 2;
-      display: block; /* hidden initially */
+      z-index: 3;
+      display: block;
     }
 
     .speech-bubble::after {
@@ -84,21 +84,117 @@
       border-right: 10px solid transparent;
       border-top: 18px solid white;
     }
+
+    /* Checklist area */
+    .checklist {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 10px 15px;
+      font-size: 0.95rem;
+      z-index: 4;
+    }
+
+    .checklist ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .checklist li {
+      margin-bottom: 4px;
+    }
+
+    .found-item {
+      text-decoration: line-through;
+      color: green;
+    }
+
+    /* Hidden item hitboxes (visible for now) */
+    .hidden-item {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 0, 0, 0.4); /* visible red for now */
+      border: 2px dashed black;
+      cursor: pointer;
+      z-index: 1;
+    }
+
+    .hidden-item.found {
+      background: rgba(0, 255, 0, 0.3);
+      border: 2px solid green;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
 
   <div class="game-window">
+
     <div class="boys-container" onclick="toggleBubble()">
       <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
     </div>
 
-<div class="speech-bubble" id="speechBubble">
-      Help us find everything we need to pack!
+    <div class="speech-bubble" id="speechBubble">
+      Help us pack for our trip to grandma’s!
     </div>
+
+    <!-- Checklist -->
+    <div class="checklist" id="checklist">
+      <strong>Find:</strong>
+      <ul>
+        <li id="check-lion">🦁 Lion plushie</li>
+        <li id="check-bunny">🐰 Bunny plushie</li>
+        <li id="check-shoes1">👟 Blue shoes</li>
+        <li id="check-shoes2">👟 Red shoes</li>
+        <li id="check-bottle">💧 Water bottles</li>
+        <li id="check-gift">🎁 Gift for cousin</li>
+      </ul>
+    </div>
+
+    <!-- Temporary visible hitboxes for item locations -->
+    <div class="hidden-item" id="lion" style="top: 100px; left: 200px;"></div>
+    <div class="hidden-item" id="bunny" style="top: 180px; left: 600px;"></div>
+    <div class="hidden-item" id="shoes1" style="top: 300px; left: 150px;"></div>
+    <div class="hidden-item" id="shoes2" style="top: 350px; left: 500px;"></div>
+    <div class="hidden-item" id="bottle" style="top: 220px; left: 400px;"></div>
+    <div class="hidden-item" id="gift" style="top: 260px; left: 300px;"></div>
+
   </div>
 
   <script>
+    const items = [
+      { id: 'lion', label: 'check-lion' },
+      { id: 'bunny', label: 'check-bunny' },
+      { id: 'shoes1', label: 'check-shoes1' },
+      { id: 'shoes2', label: 'check-shoes2' },
+      { id: 'bottle', label: 'check-bottle' },
+      { id: 'gift', label: 'check-gift' }
+    ];
+
+    let foundCount = 0;
+
+    items.forEach(item => {
+      const el = document.getElementById(item.id);
+      el.addEventListener('click', () => {
+        if (!el.classList.contains('found')) {
+          el.classList.add('found');
+          document.getElementById(item.label).classList.add('found-item');
+          foundCount++;
+          if (foundCount === items.length) {
+            setTimeout(() => {
+              alert("Great job! You're ready to go!");
+              window.location.href = "nextroom.html"; // Change this!
+            }, 700);
+          }
+        }
+      });
+    });
+
     function toggleBubble() {
       const bubble = document.getElementById('speechBubble');
       bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
