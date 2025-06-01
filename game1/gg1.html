@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pack for Grandma's</title>
+  <title>Pack Game</title>
   <style>
     html, body {
       margin: 0;
@@ -23,8 +23,8 @@
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       max-width: 800px;
       width: 95vw;
-      min-height: 550px;
-      padding: 20px;
+      min-height: 500px;
+      padding: 30px 20px;
       box-sizing: border-box;
       position: relative;
       overflow: hidden;
@@ -39,21 +39,21 @@
     }
 
     .boys-container img {
-      width: 180px;
+      width: 200px;
       height: auto;
       border-radius: 8px;
     }
 
     .speech-bubble {
       position: absolute;
-      bottom: 260px;
+      bottom: 300px;
       left: 40px;
       background: white;
       border: 2px solid black;
       border-radius: 12px;
       padding: 12px 16px;
-      max-width: 350px;
-      font-size: 1rem;
+      max-width: 300px;
+      font-size: 1.2rem;
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 3;
@@ -85,116 +85,134 @@
       border-top: 18px solid white;
     }
 
-    /* Checklist area */
-    .checklist {
+    /* New small checklist container at bottom right */
+    .checklist-small {
       position: absolute;
-      bottom: 10px;
-      right: 10px;
-      background: rgba(255,255,255,0.9);
-      border: 1px solid #ccc;
+      bottom: 15px;
+      right: 15px;
+      background: white;
+      border: 2px solid black;
       border-radius: 12px;
-      padding: 10px 15px;
-      font-size: 0.95rem;
+      padding: 10px 14px;
+      max-width: 220px;
+      font-size: 0.9rem;
+      color: #333;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 4;
     }
 
-    .checklist ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
+    .checklist-small h4 {
+      margin: 0 0 8px 0;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: center;
     }
 
-    .checklist li {
-      margin-bottom: 4px;
+    .checklist-item {
+      margin: 4px 0;
+      user-select: none;
     }
 
-    .found-item {
-      text-decoration: line-through;
+    .checklist-item.checked::before {
+      content: "☑ ";
       color: green;
     }
 
-    /* Hidden item hitboxes (visible for now) */
+    .checklist-item::before {
+      content: "☐ ";
+      color: black;
+    }
+
+    /* Hidden clickable red squares */
     .hidden-item {
       position: absolute;
       width: 40px;
       height: 40px;
-      background: rgba(255, 0, 0, 0.4); /* visible red for now */
-      border: 2px dashed black;
+      background: rgba(255, 0, 0, 0.7);
+      border-radius: 8px;
       cursor: pointer;
-      z-index: 1;
+      z-index: 5;
+      /* Initially visible for testing, you can toggle display:none after testing */
     }
 
-    .hidden-item.found {
-      background: rgba(0, 255, 0, 0.3);
-      border: 2px solid green;
-      pointer-events: none;
-    }
+    /* Example positions for the hidden items */
+    .item1 { top: 60px; left: 87px; }
+    .item2 { top: 420px; left: 350px; }
+    .item3 { top: 200px; left: 600px; }
+    .item4 { top: 100px; left: 680px; }
+    .item5 { top: 155px; left: 650px; }
+
   </style>
 </head>
 <body>
 
   <div class="game-window">
-
     <div class="boys-container" onclick="toggleBubble()">
       <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
     </div>
 
     <div class="speech-bubble" id="speechBubble">
-      Help us pack for our trip to grandma’s!
+      Help my little brother pack!
     </div>
 
-    <!-- Checklist -->
-    <div class="checklist" id="checklist">
-      <strong>Find:</strong>
-      <ul>
-        <li id="check-lion">🦁 Lion plushie</li>
-        <li id="check-bunny">🐰 Bunny plushie</li>
-        <li id="check-shoes1">👟 Blue shoes</li>
-        <li id="check-shoes2">👟 Red shoes</li>
-        <li id="check-bottle">💧 Water bottles</li>
-        <li id="check-gift">🎁 Gift for cousin</li>
-      </ul>
+    <!-- Hidden clickable items -->
+    <div class="hidden-item item1" data-item="Bunny plushie" title="Bunny plushie"></div>
+    <div class="hidden-item item2" data-item="Red shoes" title="Red shoes"></div>
+    <div class="hidden-item item3" data-item="Clothes" title="Clothes"></div>
+    <div class="hidden-item item4" data-item="Water bottle" title="Water bottle"></div>
+    <div class="hidden-item item5" data-item="Gift for cousin" title="Gift for cousin"></div>
+
+    <!-- Small checklist bottom right -->
+    <div class="checklist-small" id="checklistSmall">
+      <h4>Packing List</h4>
+      <div class="checklist-item" data-item="Bunny plushie">Bunny plushie</div>
+      <div class="checklist-item" data-item="Red shoes">Red shoes</div>
+      <div class="checklist-item" data-item="Clothes">Clothes</div>
+      <div class="checklist-item" data-item="Water bottle">Water bottle</div>
+      <div class="checklist-item" data-item="Gift for cousin">Gift for cousin</div>
     </div>
-
-    <!-- Temporary visible hitboxes for item locations -->
-    <div class="hidden-item" id="lion" style="top: 100px; left: 200px;"></div>
-    <div class="hidden-item" id="bunny" style="top: 180px; left: 600px;"></div>
-    <div class="hidden-item" id="shoes1" style="top: 300px; left: 150px;"></div>
-    <div class="hidden-item" id="shoes2" style="top: 350px; left: 500px;"></div>
-    <div class="hidden-item" id="bottle" style="top: 220px; left: 400px;"></div>
-    <div class="hidden-item" id="gift" style="top: 260px; left: 300px;"></div>
-
   </div>
 
   <script>
-    const items = [
-      { id: 'lion', label: 'check-lion' },
-      { id: 'bunny', label: 'check-bunny' },
-      { id: 'shoes1', label: 'check-shoes1' },
-      { id: 'shoes2', label: 'check-shoes2' },
-      { id: 'bottle', label: 'check-bottle' },
-      { id: 'gift', label: 'check-gift' }
-    ];
+    const checklistItems = document.querySelectorAll('.checklist-item');
+    const hiddenItems = document.querySelectorAll('.hidden-item');
 
-    let foundCount = 0;
+    // Track checked state
+    const checkedItems = new Set();
 
-    items.forEach(item => {
-      const el = document.getElementById(item.id);
-      el.addEventListener('click', () => {
-        if (!el.classList.contains('found')) {
-          el.classList.add('found');
-          document.getElementById(item.label).classList.add('found-item');
-          foundCount++;
-          if (foundCount === items.length) {
-            setTimeout(() => {
-              alert("Great job! You're ready to go!");
-              window.location.href = "nextroom.html"; // Change this!
-            }, 700);
-          }
+    hiddenItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const name = item.dataset.item;
+        if (!checkedItems.has(name)) {
+          checkedItems.add(name);
+          markItemChecked(name);
+          item.style.background = 'rgba(0, 200, 0, 0.7)'; // visually show it's collected
+          item.style.pointerEvents = 'none'; // disable clicking again
+          checkAllCollected();
         }
       });
     });
 
+    function markItemChecked(name) {
+      checklistItems.forEach(ci => {
+        if (ci.dataset.item === name) {
+          ci.classList.add('checked');
+        }
+      });
+    }
+
+    function checkAllCollected() {
+      if (checkedItems.size === checklistItems.length) {
+        // All items found! Move to next page after short delay
+        setTimeout(() => {
+          alert("Great! All items packed. Moving to next page...");
+          // For example, navigate to next page:
+          // window.location.href = "next-page.html";
+        }, 500);
+      }
+    }
+
+    // Toggle speech bubble visibility on boys click
     function toggleBubble() {
       const bubble = document.getElementById('speechBubble');
       bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
