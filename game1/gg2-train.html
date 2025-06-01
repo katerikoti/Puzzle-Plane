@@ -103,9 +103,9 @@
   <div class="game-window" id="gameWindow">
     <img id="train" src="https://i.imgur.com/Bq9upZL.png" alt="Train icon" />
     
-   <div id="problem-container">
+  <div id="problem-container">
   <label for="answer-input" style="font-weight:bold; font-size:1.1rem; color:#0288d1; user-select:none;">
-    Problem =
+    <span id="problem-text">Problem =</span>
   </label>
   <input id="answer-input" type="text" autocomplete="off" />
   <button id="submit-btn">Submit</button>
@@ -116,11 +116,11 @@
     // City points (x, y) in px relative to game-window top-left corner
     // Adjust these to fit your map exactly
     const cityPoints = [
-      {x: 585, y: 70},   // Joensuu (start)
-      {x: 140, y: 100}, // Kitee
-      {x: 220, y: 130}, // Kesälahti
-      {x: 290, y: 170}, // Parikkala
-      {x: 370, y: 220}, // Imatra
+      {x: 585, y: 65},   // Joensuu (start)
+      {x: 540, y: 225}, // Imatra
+      {x: 513, y: 240}, // Lappeenranta
+      {x: 435, y: 263}, // Kouvola
+      {x: 370, y: 220}, // Lahti
       {x: 450, y: 270}  // Helsinki Airport (final)
     ];
 
