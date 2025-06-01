@@ -47,19 +47,18 @@
       border: 2px solid #0288d1;
       padding: 12px 18px;
       border-radius: 12px;
-      max-width: 180px;
+      max-width: 220px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      user-select: text;
+      user-select: none;
       text-align: center;
       font-weight: bold;
       z-index: 10;
     }
 
-    #problem-container label {
-      display: inline-block;
-      margin-right: 8px;
+    #problem-text {
       font-size: 1.1rem;
-      vertical-align: middle;
+      color: #0288d1;
+      user-select: none;
     }
 
     #answer-input {
@@ -70,7 +69,8 @@
       border: 1px solid #0288d1;
       outline: none;
       color: #0288d1;
-      vertical-align: middle;
+      text-align: center;
+      margin-left: 6px;
     }
 
     #answer-input:focus {
@@ -97,7 +97,7 @@
       color: white;
     }
 
-      #completionPopup {
+    #completionPopup {
       display: none;
       position: absolute;
       top: 50%;
@@ -137,16 +137,17 @@
 
   <div class="game-window" id="gameWindow">
     <img id="train" src="https://i.imgur.com/Bq9upZL.png" alt="Train icon" />
-    
+
     <div id="problem-container">
-      <label for="answer-input" style="font-weight:bold; font-size:1.1rem; color:#0288d1; user-select:none;">
-        <span id="problem-text">Problem =</span>
-      </label>
+      <span id="problem-text">Problem =</span>
       <input id="answer-input" type="text" autocomplete="off" />
       <button id="submit-btn">Submit</button>
     </div>
 
-    <div id="congrats-message">All done!<br>Well done!</div>
+    <div id="completionPopup">
+      <p>You solved all the problems!</p>
+      <button onclick="goToNextPage()">Let’s go!</button>
+    </div>
   </div>
 
   <script>
@@ -171,7 +172,7 @@
     const problemText = document.getElementById('problem-text');
     const answerInput = document.getElementById('answer-input');
     const submitBtn = document.getElementById('submit-btn');
-    const congratsMessage = document.getElementById('congrats-message');
+    const popup = document.getElementById('completionPopup');
 
     let currentStep = 0;
 
@@ -183,19 +184,19 @@
 
     function showProblem(step) {
       if (step < problems.length) {
-        problemText.textContent = `Solve: ${problems[step].question} = ?`;
+        problemText.textContent = `Solve: ${problems[step].question} =`;
         answerInput.value = '';
         answerInput.focus();
       }
     }
 
-    submitBtn.addEventListener('click', () => {
+    function submitAnswer() {
       const userAnswer = Number(answerInput.value);
       if (userAnswer === problems[currentStep].answer) {
         currentStep++;
         if (currentStep >= cityPoints.length) {
-          congratsMessage.style.display = 'block';
           document.getElementById('problem-container').style.display = 'none';
+          popup.style.display = 'block';
           return;
         }
         setTrainPosition(currentStep);
@@ -203,13 +204,25 @@
           showProblem(currentStep);
         } else {
           document.getElementById('problem-container').style.display = 'none';
-          congratsMessage.style.display = 'block';
+          popup.style.display = 'block';
         }
       } else {
         alert('Oops, try again!');
         answerInput.focus();
       }
+    }
+
+    submitBtn.addEventListener('click', submitAnswer);
+
+    answerInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        submitAnswer();
+      }
     });
+
+    function goToNextPage() {
+      window.location.href = "next-page.html"; // Replace with your actual next page URL
+    }
 
     setTrainPosition(0);
     showProblem(0);
