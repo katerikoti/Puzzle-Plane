@@ -46,14 +46,14 @@
 
     .speech-bubble {
       position: absolute;
-      bottom: 300px;
+      bottom: 305px;
       left: 40px;
       background: white;
-      border: 2px solid black;
+     border: 1px solid rgba(0,0,0,0.5);
       border-radius: 12px;
       padding: 12px 16px;
       max-width: 300px;
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 3;
@@ -90,12 +90,11 @@
       position: absolute;
       bottom: 15px;
       right: 15px;
-      background: white;
-      border: 2px solid black;
+background: rgba(255, 255, 255, 0.8);      border: 1px solid rgba(0,0,0,0.5);
       border-radius: 12px;
       padding: 10px 14px;
       max-width: 220px;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 4;
@@ -124,23 +123,25 @@
     }
 
     /* Hidden clickable red squares */
-    .hidden-item {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      background: rgba(255, 0, 0, 0.7);
-      border-radius: 8px;
-      cursor: pointer;
-      z-index: 5;
+   .hidden-item {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  opacity: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 5;
+}
       /* Initially visible for testing, you can toggle display:none after testing */
     }
 
     /* Example positions for the hidden items */
     .item1 { top: 60px; left: 87px; }
     .item2 { top: 420px; left: 350px; }
-    .item3 { top: 200px; left: 600px; }
-    .item4 { top: 100px; left: 680px; }
-    .item5 { top: 155px; left: 650px; }
+    .item3 { top: 210px; left: 375px; }
+    .item4 { top: 250px; left: 680px; }
+    .item5 { top: 155px; left: 605px; }
 
   </style>
 </head>
