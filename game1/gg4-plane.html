@@ -47,13 +47,13 @@
 .speech-bubble {
   position: absolute;
   bottom: 30%;
-  left: 26%;
+  left: 29%;
   width: 25%;
   background: white;
   border: 1px solid rgba(0,0,0,0.5);
   border-radius: 1.5vw;
   padding: 1.5vw;
-  font-size: 1.5vw;
+  font-size: 2vw;
   color: #333;
   box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
   z-index: 3;
@@ -113,6 +113,30 @@
     display: none; /* Hide bubble tail on small screens if it overlaps */
   }
 }
+    .passcode-inputs {
+  position: absolute;
+  bottom: 39.5%;
+  right: 13.5%;
+  display: flex;
+  gap: 0.8vw;
+  z-index: 3;
+}
+
+.digit {
+  width: 2vw;
+  height: 2vw;
+  font-size: 2vw;
+  text-align: center;
+  background: transparent;
+    }
+
+@media (max-width: 600px) {
+  .digit {
+    width: 8vw;
+    height: 8vw;
+    font-size: 4vw;
+  }
+}
   </style>
 </head>
 <body>
@@ -130,7 +154,12 @@
       <img src="https://i.imgur.com/dz0E8wD.png" alt="Locked phone" />
     </div>
   </div>
-
+<div class="passcode-inputs">
+  <input type="text" maxlength="1" class="digit" />
+  <input type="text" maxlength="1" class="digit" />
+  <input type="text" maxlength="1" class="digit" />
+  <input type="text" maxlength="1" class="digit" />
+</div>
   <script>
     function toggleBubble() {
       const bubble = document.getElementById('speechBubble');
