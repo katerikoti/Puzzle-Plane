@@ -17,47 +17,51 @@
     }
 
     .game-window {
-      background: white url('https://i.imgur.com/qJWLWD5.png') no-repeat center center;
+      width: 95vw;
+      max-width: 800px;
+      aspect-ratio: 4 / 3;
+      background: url('https://i.imgur.com/qJWLWD5.png') no-repeat center center;
       background-size: cover;
       border-radius: 25px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      max-width: 800px;
-      width: 95vw;
-      min-height: 500px;
-      padding: 30px 20px;
-      box-sizing: border-box;
       position: relative;
       overflow: hidden;
     }
 
+    .game-content {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
     .boys-container {
       position: absolute;
-      bottom: 5px;
-      left: 10px;
+      left: 1%;
+      bottom: 1%;
+      width: 30%;
       z-index: 2;
       cursor: pointer;
     }
 
     .boys-container img {
-      width: 200px;
+      width: 100%;
       height: auto;
       border-radius: 8px;
     }
 
     .speech-bubble {
       position: absolute;
-      bottom: 305px;
-      left: 40px;
+      left: 5%;
+      bottom: 59%;
+      width: 31%;
       background: white;
       border: 1px solid rgba(0,0,0,0.5);
       border-radius: 12px;
-      padding: 12px 16px;
-      max-width: 300px;
-      font-size: 1rem;
+      padding: 1vw;
+      font-size: 1.9vw;
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 3;
-      display: block;
     }
 
     .speech-bubble::after {
@@ -87,14 +91,14 @@
 
     .checklist-small {
       position: absolute;
-      bottom: 15px;
-      right: 15px;
-      background: rgba(255, 255, 255, 0.8);
+      bottom: 3%;
+      right: 3%;
+      background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(0,0,0,0.5);
       border-radius: 12px;
-      padding: 10px 14px;
-      max-width: 220px;
-      font-size: 0.8rem;
+      padding: 1vw;
+      width: 15%;
+      font-size: 1.7vw;
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 4;
@@ -103,12 +107,12 @@
     .checklist-small h4 {
       margin: 0 0 8px 0;
       font-weight: bold;
-      font-size: 1rem;
+      font-size: 1.7vw;
       text-align: center;
     }
 
     .checklist-item {
-      margin: 4px 0;
+      margin: 0.4vw 0;
       user-select: none;
     }
 
@@ -127,23 +131,22 @@
     }
 
     .hidden-item {
-  position: absolute;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  z-index: 5;
+      position: absolute;
+      width: 6%;
+      height: 6%;
+      background: transparent;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 5;
     }
 
-    .item1 { top: 10%; left: 11%; }
-.item2 { top: 84%; left: 46%; }
-.item3 { top: 42%; left: 49%; }
-.item4 { top: 50%; left: 88%; }
-.item5 { top: 30%; left: 78%; }
+    .item1 { top: 14%; left: 7%; }
+    .item2 { top: 84%; left: 46%; }
+    .item3 { top: 45%; left: 49%; }
+    .item4 { top: 50%; left: 93%; }
+    .item5 { top: 32%; left: 82%; }
 
-    /* Completion popup */
     #completionPopup {
       display: none;
       position: absolute;
@@ -151,6 +154,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       background: white;
+      opacity: 0.9;
       border: 2px solid #333;
       border-radius: 15px;
       padding: 20px 30px;
@@ -178,38 +182,53 @@
       background-color: #218838;
     }
 
+    @media (max-width: 600px) {
+      .speech-bubble {
+        font-size: 3vw;
+        padding: 2vw;
+      }
+
+      .checklist-small {
+        font-size: 3vw;
+        padding: 2vw;
+      }
+
+      .checklist-small h4 {
+        font-size: 4vw;
+      }
+    }
   </style>
 </head>
 <body>
-
   <div class="game-window">
-    <div class="boys-container" onclick="toggleBubble()">
-      <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
-    </div>
+    <div class="game-content">
+      <div class="boys-container" onclick="toggleBubble()">
+        <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
+      </div>
 
-    <div class="speech-bubble" id="speechBubble">
-      Help my little brother Amos pack!
-    </div>
+      <div class="speech-bubble" id="speechBubble">
+        Help my little brother Amos pack!
+      </div>
 
-    <div class="hidden-item item1" data-item="Bunny plushie" title="Bunny plushie"></div>
-    <div class="hidden-item item2" data-item="Red shoes" title="Red shoes"></div>
-    <div class="hidden-item item3" data-item="Clothes" title="Clothes"></div>
-    <div class="hidden-item item4" data-item="Green bottle" title="Green bottle"></div>
-    <div class="hidden-item item5" data-item="Gift for cousin" title="Gift for cousin"></div>
+      <div class="hidden-item item1" data-item="Bunny plushie" title="Bunny plushie"></div>
+      <div class="hidden-item item2" data-item="Red shoes" title="Red shoes"></div>
+      <div class="hidden-item item3" data-item="Clothes" title="Clothes"></div>
+      <div class="hidden-item item4" data-item="Green bottle" title="Green bottle"></div>
+      <div class="hidden-item item5" data-item="Gift for cousin" title="Gift for cousin"></div>
 
-    <div class="checklist-small" id="checklistSmall">
-      <h4>Packing List</h4>
-      <div class="checklist-item" data-item="Bunny plushie">Bunny plushie</div>
-      <div class="checklist-item" data-item="Red shoes">Red shoes</div>
-      <div class="checklist-item" data-item="Clothes">Clothes</div>
-      <div class="checklist-item" data-item="Green bottle">Green bottle</div>
-      <div class="checklist-item" data-item="Gift for cousin">Gift for cousin</div>
-    </div>
+      <div class="checklist-small" id="checklistSmall">
+        <h4>Packing List</h4>
+        <div class="checklist-item" data-item="Bunny plushie">Bunny plushie</div>
+        <div class="checklist-item" data-item="Red shoes">Red shoes</div>
+        <div class="checklist-item" data-item="Clothes">Clothes</div>
+        <div class="checklist-item" data-item="Green bottle">Green bottle</div>
+        <div class="checklist-item" data-item="Gift for cousin">Gift for cousin</div>
+      </div>
 
-    <!-- Custom popup -->
-    <div id="completionPopup">
-      <p>Thank you, everything's packed.</p>
-      <button onclick="goToNextPage()">Let’s go!</button>
+      <div id="completionPopup">
+        <p>Thank you, everything's packed.</p>
+        <button onclick="goToNextPage()">Let’s go!</button>
+      </div>
     </div>
   </div>
 
@@ -253,6 +272,5 @@
       bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
     }
   </script>
-
 </body>
 </html>
