@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Flight Game</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background: #e0f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .game-window {
+      background: white url('https://i.imgur.com/42BVnxY.png') no-repeat center center;
+      background-size: cover;
+      border-radius: 25px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      max-width: 800px;
+      width: 95vw;
+      min-height: 500px;
+      padding: 30px 20px;
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .boys-container {
+      position: absolute;
+      bottom: 2px;
+      left: 2px;
+      z-index: 2;
+      cursor: pointer;
+    }
+
+    .boys-container img {
+      width: 200px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .speech-bubble {
+      position: absolute;
+      bottom: 305px;
+      left: 40px;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.5);
+      border-radius: 12px;
+      padding: 12px 16px;
+      max-width: 300px;
+      font-size: 1rem;
+      color: #333;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      z-index: 3;
+      display: block;
+    }
+
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      bottom: -20px;
+      left: 30px;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 20px solid black;
+      z-index: -1;
+    }
+
+    .speech-bubble::before {
+      content: "";
+      position: absolute;
+      bottom: -18px;
+      left: 32px;
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-top: 18px solid white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-window">
+    <div class="boys-container" onclick="toggleBubble()">
+      <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
+    </div>
+
+    <div class="speech-bubble" id="speechBubble">
+      We are bored on the flight, but the phone is locked. Can you figure out the passcode?
+    </div>
+  </div>
+
+  <script>
+    function toggleBubble() {
+      const bubble = document.getElementById('speechBubble');
+      bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
+    }
+  </script>
+
+</body>
+</html>
