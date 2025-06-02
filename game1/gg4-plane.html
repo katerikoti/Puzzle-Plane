@@ -139,34 +139,77 @@ border-radius: 0;
     font-size: 4vw;
   }
 }
+    .popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.popup-content {
+  background: white;
+  padding: 2em;
+  border-radius: 1em;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+  max-width: 80%;
+  font-size: 1.2em;
+}
+
+.popup-content button {
+  margin-top: 1em;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  border: none;
+  border-radius: 0.5em;
+  background: #00796b;
+  color: white;
+  cursor: pointer;
+}
   </style>
 </head>
 <body>
+<!-- Existing game-window and passcode inputs... -->
 
-  <div class="game-window">
-    <div class="boys-container" onclick="toggleBubble()">
-      <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
-    </div>
-
-    <div class="speech-bubble" id="speechBubble">
-      We are bored on the flight, but the phone is locked, so we can't play. Can you figure out the passcode?
-    </div>
-
-    <div class="phone-image">
-      <img src="https://i.imgur.com/dz0E8wD.png" alt="Locked phone" />
-    </div>
+<div id="popup" class="popup" style="display: none;">
+  <div class="popup-content">
+    <p>Correct! You've unlocked the phone. Now it's time to pick up your baggage.</p>
+    <button onclick="goToNext()">Continue</button>
   </div>
-<div class="passcode-inputs">
-  <input type="text" maxlength="1" class="digit" />
-  <input type="text" maxlength="1" class="digit" />
-  <input type="text" maxlength="1" class="digit" />
-  <input type="text" maxlength="1" class="digit" />
 </div>
-  <script>
-    function toggleBubble() {
-      const bubble = document.getElementById('speechBubble');
-      bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
-    }
+
+<script>
+  function toggleBubble() {
+    const bubble = document.getElementById('speechBubble');
+    bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // Check passcode logic
+  const inputs = document.querySelectorAll('.digit');
+  inputs.forEach((input, index) => {
+    input.addEventListener('input', () => {
+      if (input.value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+
+      const code = Array.from(inputs).map(i => i.value).join('');
+      if (code === '8671') {
+        document.getElementById('popup').style.display = 'flex';
+      }
+    });
+  });
+
+  function goToNext() {
+    alert('Redirecting to baggage pickup...');
+    document.getElementById('popup').style.display = 'none';
+    // window.location.href = 'baggage.html'; // <-- Uncomment this when ready
+  }
   </script>
 
 </body>
