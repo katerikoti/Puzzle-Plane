@@ -44,46 +44,46 @@
       border-radius: 8px;
     }
 
-.speech-bubble {
-  position: absolute;
-  bottom: 30%;
-  left: 29%;
-  width: 25%;
-  background: white;
-  border: 1px solid rgba(0,0,0,0.5);
-  border-radius: 1.5vw;
-  padding: 1.5vw;
-  font-size: 2vw;
-  color: #333;
-  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-  z-index: 3;
-}
+    .speech-bubble {
+      position: absolute;
+      bottom: 30%;
+      left: 29%;
+      width: 25%;
+      background: white;
+      border: 1px solid rgba(0,0,0,0.5);
+      border-radius: 1.5vw;
+      padding: 1.5vw;
+      font-size: 2vw;
+      color: #333;
+      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+      z-index: 3;
+    }
 
-/* Bubble tail */
-.speech-bubble::after {
-  content: "";
-  position: absolute;
-  top: 35%;
-  left: -1.5vw;
-  width: 0;
-  height: 0;
-  border-top: 1.2vw solid transparent;
-  border-bottom: 1.2vw solid transparent;
-  border-right: 1.5vw solid black;
-  z-index: -1;
-}
+    /* Bubble tail */
+    .speech-bubble::after {
+      content: "";
+      position: absolute;
+      top: 35%;
+      left: -1.5vw;
+      width: 0;
+      height: 0;
+      border-top: 1.2vw solid transparent;
+      border-bottom: 1.2vw solid transparent;
+      border-right: 1.5vw solid black;
+      z-index: -1;
+    }
 
-.speech-bubble::before {
-  content: "";
-  position: absolute;
-  top: 36%;
-  left: -1.3vw;
-  width: 0;
-  height: 0;
-  border-top: 1vw solid transparent;
-  border-bottom: 1vw solid transparent;
-  border-right: 1.3vw solid white;
-}
+    .speech-bubble::before {
+      content: "";
+      position: absolute;
+      top: 36%;
+      left: -1.3vw;
+      width: 0;
+      height: 0;
+      border-top: 1vw solid transparent;
+      border-bottom: 1vw solid transparent;
+      border-right: 1.3vw solid white;
+    }
 
     .phone-image {
       position: absolute;
@@ -99,117 +99,146 @@
       width: auto;
     }
 
-   @media (max-width: 600px) {
-  .speech-bubble {
-    font-size: 3vw;
-    padding: 2.5vw;
-    width: 60%;
-    left: 32%;
-    bottom: 35%;
-  }
+    @media (max-width: 600px) {
+      .speech-bubble {
+        font-size: 3vw;
+        padding: 2.5vw;
+        width: 60%;
+        left: 32%;
+        bottom: 35%;
+      }
 
-  .speech-bubble::after,
-  .speech-bubble::before {
-    display: none; /* Hide bubble tail on small screens if it overlaps */
-  }
-}
-    .passcode-inputs {
-  position: absolute;
-  bottom: 39.5%;
-  right: 13.7%;
-  display: flex;
-  gap: 1vw;
-  z-index: 3;
-}
+      .speech-bubble::after,
+      .speech-bubble::before {
+        display: none; /* Hide bubble tail on small screens if it overlaps */
+      }
 
-.digit {
-  width: 2vw;
-  height: 2vw;
-  font-size: 2vw;
-  text-align: center;
-  background: transparent;
-border: none;
-border-radius: 0;
+      .digit {
+        width: 8vw;
+        height: 8vw;
+        font-size: 4vw;
+      }
     }
 
-@media (max-width: 600px) {
-  .digit {
-    width: 8vw;
-    height: 8vw;
-    font-size: 4vw;
-  }
-}
+    .passcode-inputs {
+      position: absolute;
+      bottom: 39.5%;
+      right: 13.7%;
+      display: flex;
+      gap: 1vw;
+      z-index: 3;
+    }
+
+    .digit {
+      width: 2vw;
+      height: 2vw;
+      font-size: 2vw;
+      text-align: center;
+      background: transparent;
+      border: none;
+      border-radius: 0;
+    }
+
+    /* Popup overlay */
     .popup {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.4);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.4);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
 
-.popup-content {
-  background: white;
-  padding: 2em;
-  border-radius: 1em;
-  text-align: center;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-  max-width: 80%;
-  font-size: 1.2em;
-}
+    /* Popup box */
+    .popup-content {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      padding: 2em 3em;
+      max-width: 60%;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      font-size: 1.2rem;
+    }
 
-.popup-content button {
-  margin-top: 1em;
-  padding: 0.5em 1em;
-  font-size: 1em;
-  border: none;
-  border-radius: 0.5em;
-  background: #00796b;
-  color: white;
-  cursor: pointer;
-}
+    .popup-content button {
+      margin-top: 1em;
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      background-color: #28a745;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .popup-content button:hover {
+      background-color: #218838;
+    }
   </style>
 </head>
 <body>
-<!-- Existing game-window and passcode inputs... -->
 
-<div id="popup" class="popup" style="display: none;">
-  <div class="popup-content">
-    <p>Correct! You've unlocked the phone. Now it's time to pick up your baggage.</p>
-    <button onclick="goToNext()">Continue</button>
+  <div class="game-window">
+    <div class="boys-container" onclick="toggleBubble()">
+      <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
+    </div>
+
+    <div class="speech-bubble" id="speechBubble">
+      We are bored on the flight, but the phone is locked, so we can't play. Can you figure out the passcode?
+    </div>
+
+    <div class="phone-image">
+      <img src="https://i.imgur.com/dz0E8wD.png" alt="Locked phone" />
+    </div>
   </div>
-</div>
 
-<script>
-  function toggleBubble() {
-    const bubble = document.getElementById('speechBubble');
-    bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
-  }
+  <div class="passcode-inputs">
+    <input type="text" maxlength="1" class="digit" />
+    <input type="text" maxlength="1" class="digit" />
+    <input type="text" maxlength="1" class="digit" />
+    <input type="text" maxlength="1" class="digit" />
+  </div>
 
-  // Check passcode logic
-  const inputs = document.querySelectorAll('.digit');
-  inputs.forEach((input, index) => {
-    input.addEventListener('input', () => {
-      if (input.value.length === 1 && index < inputs.length - 1) {
-        inputs[index + 1].focus();
-      }
+  <div id="popup" class="popup">
+    <div class="popup-content">
+      <p>Correct! You've unlocked the phone.</p>
+      <button onclick="goToNext()">Landing</button>
+    </div>
+  </div>
 
-      const code = Array.from(inputs).map(i => i.value).join('');
-      if (code === '8671') {
-        document.getElementById('popup').style.display = 'flex';
-      }
+  <script>
+    function toggleBubble() {
+      const bubble = document.getElementById('speechBubble');
+      bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
+    }
+
+    const inputs = document.querySelectorAll('.digit');
+    inputs.forEach((input, index) => {
+      input.addEventListener('input', () => {
+        // Only allow digits 0-9
+        input.value = input.value.replace(/[^0-9]/g, '');
+
+        // Auto-focus next input
+        if (input.value.length === 1 && index < inputs.length - 1) {
+          inputs[index + 1].focus();
+        }
+
+        // If all inputs are filled, check code
+        const code = Array.from(inputs).map(i => i.value).join('');
+        if (code.length === inputs.length && code === '8671') {
+          document.getElementById('popup').style.display = 'flex';
+        }
+      });
     });
-  });
 
-  function goToNext() {
-    alert('Redirecting to baggage pickup...');
-    document.getElementById('popup').style.display = 'none';
-    // window.location.href = 'baggage.html'; // <-- Uncomment this when ready
-  }
+    function goToNext() {
+      window.location.href = '/game1/gg5-landed.html';
+    }
   </script>
 
 </body>
