@@ -12,125 +12,183 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      min-height: 100vh;
     }
 
-    .game-window {
-      width: 95vw;
-      max-width: 800px;
-      height: 500px;
-      background: url('https://i.imgur.com/w4g2rzK.png') no-repeat center center;
-      background-size: cover;
-      border-radius: 25px;
-      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      position: relative;
-      user-select: none;
-      overflow: visible;
-    }
+   .game-window {
+  width: 95vw;
+  max-width: 800px;
+  aspect-ratio: 16 / 10;
+  background: url('https://i.imgur.com/w4g2rzK.png') no-repeat center center;
+  background-size: contain;
+  border-radius: 25px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  position: relative;
+  user-select: none;
+  overflow: visible;
+  min-height: 0; /* prevent weird stretching */
+}
 
-    #train {
-      position: absolute;
-      width: 45px;
-      height: auto;
-      top: 0;
-      left: 0;
-      transition: top 0.8s ease, left 0.8s ease;
-      user-select: none;
-      pointer-events: none;
-      z-index: 5;
-    }
+/* Train fixed size: use px width + max-width */
+#train {
+  position: absolute;
+  width: 45px;      /* fixed width */
+  height: auto;
+  transition: top 0.8s ease, left 0.8s ease;
+  user-select: none;
+  pointer-events: none;
+  z-index: 5;
+}
 
-    #problem-container {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background: white;
-      border: 2px solid #0288d1;
-      padding: 12px 18px;
-      border-radius: 12px;
-      max-width: 205px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      user-select: none;
-      text-align: center;
-      font-weight: bold;
-      z-index: 10;
-    }
+/* Math window fixed size, min width */
+#problem-container {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  border: 2px solid #0288d1;
+  padding: 12px 18px;
+  border-radius: 12px;
+  width: 210px;           /* fixed width */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  user-select: none;
+  text-align: center;
+  font-weight: bold;
+  z-index: 10;
+  box-sizing: border-box;
+}
 
-    #problem-text {
-      font-size: 1.1rem;
-      color: #0288d1;
-      user-select: none;
-    }
+#problem-text {
+  color: #0288d1;
+  user-select: none;
+  font-size: 16px;
+}
 
-    #answer-input {
-      width: 60px;
-      font-size: 1.1rem;
-      padding: 4px 8px;
-      border-radius: 8px;
-      border: 1px solid #0288d1;
-      outline: none;
-      color: #0288d1;
-      text-align: center;
-      margin-left: 6px;
-    }
+#answer-input {
+  width: 60px;
+  font-size: 16px;
+  padding: 5px 8px;
+  border-radius: 8px;
+  border: 1px solid #0288d1;
+  outline: none;
+  color: #0288d1;
+  text-align: center;
+  margin-left: 6px;
+  box-sizing: border-box;
+}
 
-    #answer-input:focus {
-      border-color: #015a9c;
-      box-shadow: 0 0 5px #015a9c;
-    }
+#answer-input:focus {
+  border-color: #015a9c;
+  box-shadow: 0 0 5px #015a9c;
+}
 
-    #submit-btn {
-      margin-top: 10px;
-      width: 100%;
-      padding: 7px;
-      font-size: 1rem;
-      border-radius: 8px;
-      border: 1px solid #0288d1;
-      background-color: white;
-      color: #0288d1;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background-color 0.3s ease, color 0.3s ease;
-    }
+#submit-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #0288d1;
+  background-color: white;
+  color: #0288d1;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
-    #submit-btn:hover {
-      background-color: #0288d1;
-      color: white;
-    }
+#submit-btn:hover {
+  background-color: #0288d1;
+  color: white;
+}
 
-    #completionPopup {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: white;
-      border: 2px solid #333;
-      border-radius: 15px;
-      padding: 20px 30px;
-      z-index: 10;
-      box-shadow: 0 0 10px rgba(0,0,0,0.4);
-      text-align: center;
-    }
+#completionPopup {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.95);
+  border: 2px solid #333;
+  border-radius: 15px;
+  padding: 24px 48px;
+  z-index: 10;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  text-align: center;
+  font-size: 18px;
+}
 
-    #completionPopup p {
-      font-size: 1.2rem;
-      margin-bottom: 20px;
-    }
+#completionPopup p {
+  margin-bottom: 24px;
+}
 
-    #completionPopup button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      background-color: #28a745;
-      color: white;
-      cursor: pointer;
-    }
+#completionPopup button {
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
 
-    #completionPopup button:hover {
-      background-color: #218838;
-    }
+#completionPopup button:hover {
+  background-color: #218838;
+}
 
+/* Responsive tweaks for small screens */
+@media (max-width: 600px) {
+  .game-window {
+    width: 98vw;
+    aspect-ratio: auto;
+    height: 60vw; /* fallback height */
+  }
+
+  #train {
+    width: 35px;  /* smaller on small screens */
+  }
+
+  #problem-container {
+    width: 90vw;        /* almost full width on small screens */
+    padding: 20px;
+    bottom: 5%;
+    right: 5%;
+    font-size: 20px;
+  }
+  @media (max-width: 600px) {
+  /* other styles remain */
+
+  #problem-container {
+    width: 210px;       /* keep fixed width */
+    padding: 20px;
+    bottom: 5%;
+    right: 5%;
+    font-size: 20px;
+  }
+  
+  /* other styles remain */
+}
+
+  #answer-input {
+    width: 40vw;
+    font-size: 20px;
+    margin-left: 10px;
+  }
+
+  #submit-btn {
+    font-size: 20px;
+    padding: 15px 0;
+  }
+
+  #completionPopup {
+    font-size: 24px;
+    padding: 40px 60px;
+  }
+
+  #completionPopup button {
+    font-size: 24px;
+    padding: 30px 60px;
+  }
+}
   </style>
 </head>
 <body>
@@ -178,6 +236,7 @@
 
     function setTrainPosition(step) {
       const pos = cityPoints[step];
+      // Position train relative to container size using % values
       train.style.left = pos.x + '%';
       train.style.top = pos.y + '%';
     }
@@ -224,9 +283,10 @@
       window.location.href = "/game1/gg3-airport.html"; // Replace with your actual next page URL
     }
 
+    // Initialize
     setTrainPosition(0);
     showProblem(0);
   </script>
 
 </body>
-</html>
+  </html>
