@@ -38,58 +38,61 @@
       border-radius: 10px;
     }
 
-    .boys-container {
-      position: absolute;
-      bottom: 10px;
-      left: 10px;
-      z-index: 3;
-    }
+.boys-container {
+  position: absolute;
+  bottom: 0%;
+  left: 2%;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  gap: 1vw;
+}
 
-    .boys-container img {
-      width: 120px;
-      border-radius: 8px;
-    }
+.boys-container img {
+  width: 15%;
+  max-width: 800px;
+  height: auto;
+  border-radius: 8px;
+}
+  .speech-bubble {
+  position: relative;
+  background: white;
+  border: 2px solid black;
+  border-radius: 12px;
+  padding: 12px 16px;
+  max-width: 300px;
+  font-size: 1rem;
+  color: #333;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  z-index: 2;
+}
 
-    .speech-bubble {
-      position: absolute;
-      bottom: 30px;
-      left: 140px;
-      background: white;
-      border: 2px solid black;
-      border-radius: 12px;
-      padding: 12px 16px;
-      max-width: 300px;
-      font-size: 1rem;
-      color: #333;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-      z-index: 2;
-    }
+/* Keep the speech bubble tail aligned to the left side */
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  left: -20px;
+  top: 22px;
+  width: 0;
+  height: 0;
+  border-top: 12px solid transparent;
+  border-bottom: 12px solid transparent;
+  border-right: 20px solid black;
+  z-index: 1;
+}
 
-    .speech-bubble::after {
-      content: "";
-      position: absolute;
-      left: -20px;
-      top: 22px;
-      width: 0;
-      height: 0;
-      border-top: 12px solid transparent;
-      border-bottom: 12px solid transparent;
-      border-right: 20px solid black;
-      z-index: 1;
-    }
-
-    .speech-bubble::before {
-      content: "";
-      position: absolute;
-      left: -18px;
-      top: 24px;
-      width: 0;
-      height: 0;
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-      border-right: 18px solid white;
-      z-index: 2;
-    }
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  left: -18px;
+  top: 24px;
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-right: 18px solid white;
+  z-index: 2;
+}
 
     .spot {
       position: absolute;
@@ -155,14 +158,12 @@
       <button onclick="goToNextPage()">Let’s go!</button>
     </div>
 
-    <!-- Boys and speech -->
-    <div class="boys-container">
-      <img src="https://i.imgur.com/rctonWZ.png" alt="Two boys" />
-    </div>
-
-    <div class="speech-bubble">
-      Help us find 5 differences at the airport to get on the plane!
-    </div>
+   <div class="boys-container">
+  <img src="https://i.imgur.com/rctonWZ.png" alt="Two boys" />
+  <div class="speech-bubble">
+    Help us find 5 differences at the airport to get on the plane!
+  </div>
+</div>
 
     <!-- Clickable Spots -->
    <div class="spot" style="top: 18%; left: 60%;" onclick="markFound(this)"></div>
