@@ -37,7 +37,16 @@
       width: 49%;
       border-radius: 10px;
     }
-
+.tick {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background-image: url('https://img.icons8.com/emoji/48/000000/check-mark-emoji.png'); /* Green tick emoji image */
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 4;
+  pointer-events: none;
+}
 .boys-container {
   position: absolute;
   bottom: 0%;
@@ -54,7 +63,7 @@
   height: auto;
   border-radius: 8px;
 }
-  .speech-bubble {
+ .speech-bubble {
   position: relative;
   background: white;
   border: 2px solid black;
@@ -65,6 +74,7 @@
   color: #333;
   box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
   z-index: 2;
+  margin-bottom: 2%; /* <-- This raises it above the boys */
 }
 
 /* Keep the speech bubble tail aligned to the left side */
@@ -99,7 +109,7 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background: transparent;
+      background: red;
       cursor: pointer;
       z-index: 2;
     }
@@ -166,9 +176,9 @@
 </div>
 
     <!-- Clickable Spots -->
-   <div class="spot" style="top: 18%; left: 60%;" onclick="markFound(this)"></div>
-<div class="spot" style="top: 23%; left: 90%;" onclick="markFound(this)"></div>
-<div class="spot" style="top: 36%; left: 93%;" onclick="markFound(this)"></div>
+   <div class="spot" style="top: 22%; left: 60%;" onclick="markFound(this)"></div>
+<div class="spot" style="top: 26%; left: 90%;" onclick="markFound(this)"></div>
+<div class="spot" style="top: 43%; left: 93%;" onclick="markFound(this)"></div>
 <div class="spot" style="top: 40%; left: 60%;" onclick="markFound(this)"></div>
 <div class="spot" style="top: 59%; left: 72%;" onclick="markFound(this)"></div>
   </div>
@@ -185,7 +195,23 @@
         }
       }
     }
+function markFound(el) {
+  if (!el.classList.contains('hidden')) {
+    el.classList.add('hidden');
 
+    // Create tick icon
+    const tick = document.createElement('div');
+    tick.className = 'tick';
+    tick.style.top = el.style.top;
+    tick.style.left = el.style.left;
+    document.querySelector('.game-window').appendChild(tick);
+
+    foundCount++;
+    if (foundCount === 5) {
+      document.getElementById('completionPopup').style.display = 'block';
+    }
+  }
+}
     function goToNextPage() {
       window.location.href = "/game1/gg4-plane.html"; // Update this if needed
     }
