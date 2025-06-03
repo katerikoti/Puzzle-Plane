@@ -57,8 +57,8 @@
       background: white;
       border: 1px solid rgba(0,0,0,0.5);
       border-radius: 12px;
-      padding: 1vw;
-      font-size: 1.9vw;
+      padding: clamp(12px, 1.5vw, 20px);
+      font-size: clamp(16px, 2vw, 24px);
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 3;
@@ -96,9 +96,9 @@
       background: rgba(255, 255, 255, 0.85);
       border: 1px solid rgba(0,0,0,0.5);
       border-radius: 12px;
-      padding: 1vw;
+      padding: clamp(12px, 1.5vw, 20px);
       width: 15%;
-      font-size: 1.7vw;
+      font-size: clamp(14px, 1.8vw, 22px);
       color: #333;
       box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
       z-index: 4;
@@ -107,7 +107,7 @@
     .checklist-small h4 {
       margin: 0 0 8px 0;
       font-weight: bold;
-      font-size: 1.7vw;
+      font-size: clamp(18px, 2.2vw, 28px);
       text-align: center;
     }
 
@@ -180,22 +180,6 @@
 
     #completionPopup button:hover {
       background-color: #218838;
-    }
-
-    @media (max-width: 600px) {
-      .speech-bubble {
-        font-size: 3vw;
-        padding: 2vw;
-      }
-
-      .checklist-small {
-        font-size: 3vw;
-        padding: 2vw;
-      }
-
-      .checklist-small h4 {
-        font-size: 4vw;
-      }
     }
   </style>
 </head>
