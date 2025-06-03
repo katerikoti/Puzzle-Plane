@@ -47,9 +47,8 @@
       padding: 0.3vw 0.2vw;
       color: #333;
       outline: none;
-      box-shadow: none;
       border-radius: 6px;
-      flex-grow: 0;
+      flex-shrink: 0;
       appearance: none;
     }
 
@@ -64,11 +63,13 @@
       font-size: 16px;
       cursor: pointer;
       color: #5c4033;
+      user-select: none;
     }
 
     .hint {
       font-size: 16px;
       margin-left: 0.3vw;
+      user-select: none;
     }
 
     .input1 { top: 4.5%; }
@@ -83,6 +84,7 @@
       width: 30%;
       transform: translateX(-50%);
       cursor: pointer;
+      user-select: none;
     }
 
     /* Speech bubble */
@@ -152,6 +154,9 @@
       z-index: 10;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       text-align: center;
+      max-width: 90%;
+      width: 350px;
+      user-select: none;
     }
 
     #completionPopup p {
@@ -212,7 +217,7 @@
       Oh no! The letters on the sign got mixed up!
     </div>
 
-    <img class="boys" src="https://i.imgur.com/rctonWZ.png" alt="Two boys" onclick="toggleSpeechBubble()" />
+    <img class="boys" src="https://i.imgur.com/rctonWZ.png" alt="Two boys" />
 
     <div class="input-row input1">
       <input type="text" placeholder="_____" id="word1" maxlength="5" />
@@ -241,39 +246,42 @@
   </div>
 
   <script>
-  function showHint(index) {
-    const hints = {
-      1: "➡️",   // Exit
-      2: "🚌",   // Bus
-      3: "🚕"    // Taxi
-    };
-    document.getElementById('hint' + index).textContent = hints[index];
-  }
+    const speechBubble = document.getElementById('speech-bubble');
+    const boysImg = document.querySelector('.boys');
 
-  function checkAnswers() {
-    const correctWords = ['exit', 'bus', 'taxi'];
-    const userInputs = [
-      document.getElementById('word1').value.toLowerCase().trim(),
-      document.getElementById('word2').value.toLowerCase().trim(),
-      document.getElementById('word3').value.toLowerCase().trim()
-    ];
+    boysImg.addEventListener('click', () => {
+      speechBubble.style.display = speechBubble.style.display === 'none' ? 'block' : 'none';
+    });
 
-    if (userInputs.every((word, i) => word === correctWords[i])) {
-      document.getElementById("completionPopup").style.display = "block";
-    } else {
-      alert("Something's not right. Try again!");
+    function showHint(index) {
+      const hints = {
+        1: "➡️",   // Exit
+        2: "🚌",   // Bus
+        3: "🚕"    // Taxi
+      };
+      document.getElementById('hint' + index).textContent = hints[index];
     }
-  }
 
-  function closePopup() {
-    document.getElementById("completionPopup").style.display = "none";
-    window.location.href = "/game1/gg6-grandma.html"; // 👈 Redirect here
-  }
+    function checkAnswers() {
+      const correctWords = ['exit', 'bus', 'taxi'];
+      const userInputs = [
+        document.getElementById('word1').value.toLowerCase().trim(),
+        document.getElementById('word2').value.toLowerCase().trim(),
+        document.getElementById('word3').value.toLowerCase().trim()
+      ];
 
-  document.querySelector('.boys').addEventListener('click', () => {
-    document.querySelector('.speech-bubble').style.display = 'none';
-  });
-</script>
+      if (userInputs.every((word, i) => word === correctWords[i])) {
+        document.getElementById("completionPopup").style.display = "block";
+      } else {
+        alert("Something's not right. Try again!");
+      }
+    }
+
+    function closePopup() {
+      document.getElementById("completionPopup").style.display = "none";
+      window.location.href = "/game1/gg6-grandma.html";
+    }
+  </script>
 
 </body>
 </html>
