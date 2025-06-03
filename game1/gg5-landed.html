@@ -17,7 +17,8 @@
     }
 
     .game-window {
-      background: white;
+      background: white url('https://i.imgur.com/cZWJY36.png') no-repeat center center;
+      background-size: cover;
       border-radius: 25px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       width: 95vw;
@@ -25,18 +26,25 @@
       aspect-ratio: 16 / 10;
       position: relative;
       overflow: hidden;
-      padding: 2vw;
     }
 
     .message {
+      position: absolute;
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
       font-size: 2vw;
       text-align: center;
-      color: #333;
-      margin-top: 10%;
+      color: white;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+      max-width: 80%;
     }
 
     .next-button {
-      margin-top: 4vw;
+      position: absolute;
+      bottom: 8%;
+      left: 50%;
+      transform: translateX(-50%);
       padding: 1vw 2vw;
       font-size: 1.5vw;
       border: none;
@@ -66,15 +74,11 @@
 <body>
 
   <div class="game-window">
-    <div class="message">
-      🎉 We just landed safely in Czechia!<br/>
-      Let's find Grandma!
-    </div>
   </div>
 
   <script>
     function goToNext() {
-      window.location.href = '/game1/next-page.html'; // Replace with the next real file
+      window.location.href = '/game1/next-page.html'; // Update this with your next page
     }
   </script>
 
