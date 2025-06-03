@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Flight Game</title>
+  <title>We Landed!</title>
   <style>
     html, body {
       margin: 0;
@@ -17,8 +17,8 @@
     }
 
     .game-window {
-      background: white url('https://i.imgur.com/42BVnxY.png') no-repeat center center;
-      background-size: contain;
+      background: white url('https://i.imgur.com/YDX6T6A.png') no-repeat center center;
+      background-size: cover;
       border-radius: 25px;
       box-shadow: 0 8px 16px rgba(0,0,0,0.2);
       width: 95vw;
@@ -26,124 +26,117 @@
       aspect-ratio: 16 / 10;
       position: relative;
       overflow: hidden;
+      padding: 1em;
     }
 
-    .boys-container {
+    /* Inputs */
+    .input-row {
       position: absolute;
-      left: 0%;
-      bottom: 0%;
-      width: 26%;
-      z-index: 2;
+      left: 73%;
+      width: auto;
+      display: flex;
+      align-items: center;
+      gap: 5%;
+    }
+
+    .input-row input {
+      width: 6vw;
+      background-color: transparent;
+      border: 2px solid #5c4033;
+      font-size: 16px;
+      padding: 0.3vw 0.2vw;
+      color: #333;
+      outline: none;
+      box-shadow: none;
+      border-radius: 6px;
+      flex-grow: 0;
+      appearance: none;
+    }
+
+    .input-row input::placeholder {
+      color: transparent;
+      letter-spacing: 2px;
+    }
+
+    .hint-button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: #5c4033;
+    }
+
+    .hint {
+      font-size: 16px;
+      margin-left: 0.3vw;
+    }
+
+    .input1 { top: 3%; }
+    .input2 { top: 9%; }
+    .input3 { top: 15%; }
+
+    /* Boys */
+    .boys {
+      position: absolute;
+      bottom: 0;
+      left: 70%;
+      width: 28%;
+      transform: translateX(-50%);
       cursor: pointer;
     }
 
-    .boys-container img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-
+    /* Speech bubble */
     .speech-bubble {
       position: absolute;
-      bottom: 40%;
-      left: 95%;
-      width: 100%;
+      left: 70%;
+      bottom: 39%;
+      transform: translateX(-50%);
       background: white;
-      border: 1px solid rgba(0,0,0,0.5);
-      border-radius: 1.5vw;
-      padding: 1.5vw;
-      font-size: 2vw;
-      color: #333;
-      box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
-      z-index: 3;
+      border: 2px solid #333;
+      border-radius: 20px;
+      padding: 10px 20px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+      max-width: 60%;
+      width: fit-content;
+      min-width: 120px;
     }
 
     .speech-bubble::after {
       content: "";
       position: absolute;
-      top: 35%;
-      left: -1.5vw;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
       width: 0;
       height: 0;
-      border-top: 1.2vw solid transparent;
-      border-bottom: 1.2vw solid transparent;
-      border-right: 1.5vw solid black;
-      z-index: -1;
+      border-left: 15px solid transparent;
+      border-right: 15px solid transparent;
+      border-top: 20px solid white;
+      filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.2));
     }
 
-    .speech-bubble::before {
-      content: "";
+    /* Check button */
+    .check-button {
       position: absolute;
-      top: 36%;
-      left: -1.3vw;
-      width: 0;
-      height: 0;
-      border-top: 1vw solid transparent;
-      border-bottom: 1vw solid transparent;
-      border-right: 1.3vw solid white;
-    }
-
-    .phone-image {
-      position: absolute;
-      bottom: 5%;
-      right: 3%;
-      height: 60%;
-      max-height: 300px;
-      z-index: 2;
-    }
-
-    .phone-image img {
-      height: 100%;
-      width: auto;
-    }
-
-    .passcode-inputs {
-      position: absolute;
-      bottom: 33.5%;
-      right: 11.6%;
-      display: flex;
-      gap: 1vw;
-      z-index: 3;
-    }
-
-    .digit {
-      width: 2vw;
-      height: 2vw;
-      font-size: 2vw;
-      text-align: center;
-      background: transparent;
+      left: 73%;
+      top: 22%;
+      padding: 8px 15px;
+      font-size: 16px;
+      border-radius: 6px;
       border: none;
-      border-radius: 0;
+      background-color: #5c4033;
       color: white;
+      cursor: pointer;
+      user-select: none;
     }
 
-    @media (max-width: 600px) {
-      .speech-bubble {
-        font-size: 3vw;
-        padding: 2.5vw;
-        width: 60%;
-        left: 32%;
-        bottom: 35%;
-      }
-
-      .speech-bubble::after,
-      .speech-bubble::before {
-        display: none;
-      }
-
-      .digit {
-        width: 8vw;
-        height: 8vw;
-        font-size: 4vw;
-      }
-
-.passcode-inputs {
-        bottom: 28%;
-        right: 18%;
-        gap: 2vw;
-      }
+    .check-button:hover {
+      background-color: #7b5e3c;
     }
 
+    /* Popup */
     .popup {
       position: fixed;
       top: 0;
@@ -181,88 +174,123 @@
 
     .popup-content button:hover {
       background-color: #218838;
+    } 
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .input-row input {
+        width: 16vw;
+        font-size: 16px;
+        padding: 5px;
+      }
+
+      .hint-button, .hint {
+        font-size: 16px;
+      }
+
+      .speech-bubble {
+        font-size: 18px;
+        padding: 10px 20px;
+        bottom: 34%;
+      }
+
+      .speech-bubble::after {
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 15px solid white;
+        bottom: -15px;
+      }
+
+      .boys {
+        width: 28%;
+        left: 70%;
+      }
     }
   </style>
 </head>
 <body>
 
   <div class="game-window">
-    <div class="boys-container" onclick="toggleBubble()">
-      <img src="https://i.imgur.com/o1YNNzv.png" alt="Two boys" />
-      <div class="speech-bubble" id="speechBubble">
-        We are bored on the flight, but the phone is locked, so we can't play. Can you figure out the passcode?
-      </div>
+    <div class="speech-bubble" id="speech-bubble">
+      Oh no! The letters got mixed up!
     </div>
 
-    <div class="phone-image">
-      <img src="https://i.imgur.com/dz0E8wD.png" alt="Locked phone" />
+    <img class="boys" src="https://i.imgur.com/rctonWZ.png" alt="Two boys" onclick="toggleSpeechBubble()" />
+
+    <div class="input-row input1">
+      <input type="text" placeholder="_____" id="word1" maxlength="5" />
+      <button class="hint-button" onclick="showHint(1)">❓</button>
+      <span class="hint" id="hint1"></span>
     </div>
 
-    <!-- Moved inside .game-window -->
-    <div class="passcode-inputs">
-      <input type="text" maxlength="1" class="digit" />
-      <input type="text" maxlength="1" class="digit" />
-      <input type="text" maxlength="1" class="digit" />
-      <input type="text" maxlength="1" class="digit" />
+    <div class="input-row input2">
+      <input type="text" placeholder="_____" id="word2" maxlength="5" />
+      <button class="hint-button" onclick="showHint(2)">❓</button>
+      <span class="hint" id="hint2"></span>
     </div>
+
+    <div class="input-row input3">
+      <input type="text" placeholder="_____" id="word3" maxlength="5" />
+      <button class="hint-button" onclick="showHint(3)">❓</button>
+      <span class="hint" id="hint3"></span>
+    </div>
+
+    <button class="check-button" onclick="checkAnswers()">Check</button>
   </div>
-<div id="tryAgainMsg" style="
-  position: absolute;
-  bottom: 36%;
-  right: 17%;
-  color: red;
-  font-size: 1.2vw;
-  font-weight: bold;
-  z-index: 4;
-  display: none;
-">
-  Try again!
-</div>
-  <div id="popup" class="popup">
+
+  <div class="popup" id="popup">
     <div class="popup-content">
-      <p>Correct! You've unlocked the phone.</p>
-      <button onclick="goToNext()">Landing in 3.. 2.. 1..</button>
+      <p>We made it! Let's go find grandma!</p>
+      <button onclick="closePopup()">OK</button>
     </div>
   </div>
 
-<script>
-  function toggleBubble() {
-    const bubble = document.getElementById('speechBubble');
-    bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
-  }
+  <script>
+    function showHint(index) {
+      const hints = {
+        1: "➡️",   // Exit (pointing right)
+        2: "🚌",   // Bus
+        3: "🚕"    // Taxi
+      };
+      document.getElementById('hint' + index).textContent = hints[index];
+    }
 
-  const inputs = document.querySelectorAll('.digit');
-  const tryAgainMsg = document.getElementById('tryAgainMsg');
+    function checkAnswers() {
+      const word1 = document.getElementById("word1").value.trim();
+      const word2 = document.getElementById("word2").value.trim();
+      const word3 = document.getElementById("word3").value.trim();
+      const speechBubble = document.getElementById("speech-bubble");
 
-  inputs.forEach((input, index) => {
-    input.addEventListener('input', () => {
-      input.value = input.value.replace(/[^0-9]/g, '');
+      const correctAnswers = ["EXIT", "BUS", "TAXI"];
 
-      if (input.value.length === 1 && index < inputs.length - 1) {
-        inputs[index + 1].focus();
+      if (
+        word1.toUpperCase() === correctAnswers[0] &&
+        word2.toUpperCase() === correctAnswers[1] &&
+        word3.toUpperCase() === correctAnswers[2]
+      ) {
+        // Show popup and hide speech bubble
+        document.getElementById("popup").style.display = "flex";
+        speechBubble.style.display = "none";
+      } else {
+        // Show error text in speech bubble
+        speechBubble.style.display = "block";
+        speechBubble.textContent = "Something isn't right, try again!";
       }
+    }
 
-      const code = Array.from(inputs).map(i => i.value).join('');
+    function closePopup() {
+      document.getElementById("popup").style.display = "none";
+    }
 
-      if (code.length === inputs.length) {
-        if (code === '8671') {
-          document.getElementById('popup').style.display = 'flex';
-        } else {
-          tryAgainMsg.style.display = 'block';
-          setTimeout(() => {
-            tryAgainMsg.style.display = 'none';
-          }, 2000);
-
-          inputs.forEach(i => i.value = '');
-          inputs[0].focus();
-        }
+    function toggleSpeechBubble() {
+      const speechBubble = document.getElementById("speech-bubble");
+      if (speechBubble.style.display === "none" || speechBubble.style.display === "") {
+        speechBubble.style.display = "block";
+      } else {
+        speechBubble.style.display = "none";
       }
-    });
-  });
+    }
+  </script>
 
-  function goToNext() {
-    window.location.href = '/game1/gg5-landed.html';
-  }
-</script>
 </body>
 </html>
