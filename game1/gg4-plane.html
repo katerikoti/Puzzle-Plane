@@ -287,14 +287,14 @@
     });
 
     nextBtn.addEventListener('click', () => {
-      // Optional: You can add a small delay for effect before redirect
-      nextBtn.disabled = true;
-      nextBtn.textContent = "Landing in 3..2..1..";
+  nextBtn.disabled = true;
+  nextBtn.textContent = "Landing in 3..2..1..";
 
-      setTimeout(() => {
-        window.location.href = 'gg5-arrivals.html';
-      }, 1500);
-    });
+  setTimeout(() => {
+    // Redirect using absolute path from root
+    window.location.href = '/game1/gg5-arrivals.html';
+  }, 1500);
+});
   </script>
 
 </body>

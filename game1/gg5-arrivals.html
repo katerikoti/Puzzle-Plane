@@ -71,9 +71,9 @@
       margin-left: 0.3vw;
     }
 
-    .input1 { top: 3%; }
-    .input2 { top: 9%; }
-    .input3 { top: 15%; }
+    .input1 { top: 4.5%; }
+    .input2 { top: 10.5%; }
+    .input3 { top: 16.5%; }
 
     /* Boys */
     .boys {
@@ -121,8 +121,8 @@
     /* Check button */
     .check-button {
       position: absolute;
-      left: 73%;
-      top: 22%;
+      left: 71%;
+      top: 24%;
       padding: 8px 15px;
       font-size: 16px;
       border-radius: 6px;
@@ -209,10 +209,10 @@
 
   <div class="game-window">
     <div class="speech-bubble" id="speech-bubble">
-      Oh no! The letters got mixed up!
+      Oh no! The letters on the sign got mixed up!
     </div>
 
-    <img class="boys" src="https://i.imgur.com/rctonWZ.png" alt="Two boys" onclick="toggleSpeechBubble()" />
+    <img class="boys" src="https://i.imgur.com/rctonWZ.png" alt="Two boys" />
 
     <div class="input-row input1">
       <input type="text" placeholder="_____" id="word1" maxlength="5" />
@@ -236,8 +236,8 @@
   </div>
 
   <div id="completionPopup">
-    <p>We made it! Let's go find grandma!</p>
-    <button onclick="closePopup()">OK</button>
+    <p>We did it! Let's go find grandma!</p>
+    <button onclick="closePopup()">To EXIT</button>
   </div>
 
 <script>
@@ -270,8 +270,14 @@
     window.location.href = "/game1/gg6-grandma.html"; // 👈 Redirect here
   }
 
+  // Toggle speech bubble on boys click
   document.querySelector('.boys').addEventListener('click', () => {
-    document.querySelector('.speech-bubble').style.display = 'none';
+    const bubble = document.getElementById('speech-bubble');
+    if (bubble.style.display === 'none' || bubble.style.display === '') {
+      bubble.style.display = 'block';
+    } else {
+      bubble.style.display = 'none';
+    }
   });
 </script>
 
