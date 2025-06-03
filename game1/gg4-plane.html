@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Flight Game</title>
   <style>
-    /* Your CSS remains unchanged */
     html, body {
       margin: 0;
       padding: 0;
@@ -49,7 +48,7 @@
       position: absolute;
       bottom: 25%;
       left: 27%;
-      width: 200px;
+      width: 220px;
       max-width: 90vw;
       background: white;
       border: 1px solid rgba(0,0,0,0.5);
@@ -130,15 +129,15 @@
     }
 
     #errorMessage {
-      color: red;
-      text-align: center;
-      margin-top: 8px;
-      font-weight: bold;
-      display: none; /* hide initially */
       position: absolute;
       bottom: 29%;
-      right: 6.5%;
+      right: 8.5%;
       width: 18%;
+      color: red;
+      text-align: center;
+      margin-top: 7px;
+      font-weight: bold;
+      display: none;
       z-index: 4;
     }
 
@@ -183,7 +182,6 @@
       background-color: #218838;
     }
 
-    /* Responsive adjustments */
     @media (max-width: 600px) {
       .speech-bubble {
         font-size: 3vw;
@@ -206,14 +204,14 @@
       }
 
       .digit {
-        font-size: 5vw;
+        font-size: 6vw;
         width: 20%;
         color: white;
       }
 
       #errorMessage {
         bottom: 45%;
-        right: 29%;
+        right: 13%;
         width: 50%;
       }
     }
@@ -235,10 +233,10 @@
     </div>
 
     <div class="passcode-inputs">
-      <input type="text" maxlength="1" class="digit" />
-      <input type="text" maxlength="1" class="digit" />
-      <input type="text" maxlength="1" class="digit" />
-      <input type="text" maxlength="1" class="digit" />
+      <input type="text" maxlength="1" class="digit" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+      <input type="text" maxlength="1" class="digit" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+      <input type="text" maxlength="1" class="digit" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
+      <input type="text" maxlength="1" class="digit" inputmode="numeric" pattern="[0-9]*" autocomplete="off" />
     </div>
 
     <div id="errorMessage">Try again!</div>
@@ -247,7 +245,7 @@
   <div id="popup" class="popup">
     <div class="popup-content">
       <p>Correct! You've unlocked the phone!</p>
-      <button onclick="goToNext()">Landing in 3..2..1..</button>
+      <button id="nextBtn">Landing in 3..2..1..</button>
     </div>
   </div>
 
@@ -259,6 +257,8 @@
 
     const inputs = document.querySelectorAll('.digit');
     const errorMessage = document.getElementById('errorMessage');
+    const popup = document.getElementById('popup');
+    const nextBtn = document.getElementById('nextBtn');
 
     inputs.forEach((input, index) => {
       input.addEventListener('input', () => {
@@ -276,7 +276,7 @@
         if (code.length === inputs.length) {
           if (code === '8671') {
             errorMessage.style.display = 'none';      // hide error if correct
-            document.getElementById('popup').style.display = 'flex';
+            popup.style.display = 'flex';
           } else {
             errorMessage.style.display = 'block';     // show error if wrong
           }
@@ -286,10 +286,15 @@
       });
     });
 
-    function goToNext() {
-      console.log("Redirecting now...");
-      window.location.href = 'game1/gg5-arrivals.html';
-    }
+    nextBtn.addEventListener('click', () => {
+      // Optional: You can add a small delay for effect before redirect
+      nextBtn.disabled = true;
+      nextBtn.textContent = "Landing in 3..2..1..";
+
+      setTimeout(() => {
+        window.location.href = 'gg5-arrivals.html';
+      }, 1500);
+    });
   </script>
 
 </body>
