@@ -105,6 +105,20 @@
       z-index: 4;
     }
 
+    /* Toggle button placed inside the checklist box (top-right) */
+    #checklistToggle {
+      position: absolute;
+      top: 4px;    /* slightly higher */
+      right: 0px;  /* slightly more to the right */
+      background: transparent;
+      border: none;
+      font-size: 14px; /* smaller glyph */
+      cursor: pointer;
+      display: none; /* shown on small screens via media query */
+      padding: 1px 4px; /* tighter padding */
+      line-height: 1;
+    }
+
     .checklist-small h4 {
       margin: 0 0 8px 0;
       font-weight: bold;
@@ -155,16 +169,18 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
-      opacity: 0.9;
+      background: rgba(255,255,255,0.95);
       border: 2px solid #333;
-      border-radius: 15px;
-      padding: clamp(15px, 2vw, 30px);
+      border-radius: 12px;
+      padding: clamp(12px, 2.5vw, 24px);
       z-index: 10;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       text-align: center;
-      max-width: 90%;
-      width: 350px;
+      width: 60%;
+      max-width: 520px;
+      max-height: 80%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     #completionPopup p {
@@ -197,15 +213,20 @@
       }
 
       .checklist-small {
-        font-size: 14px;
-        padding: 10px;
+        font-size: 12px;
+        padding: 4px;
         width: 30%;
         bottom: 5%;
         right: 3%;
+        /* keep positioned so it stays anchored to bottom/right */
+        position: absolute;
       }
 
+      /* show toggle on small screens */
+      #checklistToggle { display: block; }
+
       .checklist-small h4 {
-        font-size: 16px;
+        font-size: 14px;
       }
     }
   </style>
@@ -229,6 +250,7 @@
 
       <div class="checklist-small" id="checklistSmall">
         <h4>Packing List</h4>
+        <button id="checklistToggle" aria-expanded="true" title="Hide">▼</button>
         <div class="checklist-item" data-item="Bunny plushie">Bunny plushie</div>
         <div class="checklist-item" data-item="Red shoes">Red shoes</div>
         <div class="checklist-item" data-item="Clothes">Clothes</div>
@@ -280,8 +302,33 @@
 
     function toggleBubble() {
       const bubble = document.getElementById('speechBubble');
-      bubble.style.display = bubble.style.display === 'none' ? 'block' : 'none';
+      // Mobile-only: toggle the speech bubble visibility when boys image is clicked
+      if (window.matchMedia('(max-width: 600px)').matches) {
+        const current = window.getComputedStyle(bubble).display;
+        bubble.style.display = (current === 'none') ? 'block' : 'none';
+      }
     }
+
+    // Toggle packing list visibility (button is shown on small screens via CSS)
+    (function initChecklistToggle(){
+      const toggleBtn = document.getElementById('checklistToggle');
+      const checklist = document.getElementById('checklistSmall');
+      if (!toggleBtn || !checklist) return;
+
+      // initial state: expanded
+      toggleBtn.setAttribute('aria-expanded', 'true');
+      let hidden = false;
+
+      function setCollapsed(collapsed) {
+        hidden = !!collapsed;
+        checklist.querySelectorAll('.checklist-item, h4').forEach(el => el.style.display = hidden ? 'none' : '');
+        toggleBtn.textContent = hidden ? '▲' : '▼';
+        toggleBtn.title = hidden ? 'Show' : 'Hide';
+        toggleBtn.setAttribute('aria-expanded', hidden ? 'false' : 'true');
+      }
+
+      toggleBtn.addEventListener('click', () => setCollapsed(!hidden));
+    })();
   </script>
 </body>
 </html>

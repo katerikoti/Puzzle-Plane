@@ -79,18 +79,18 @@
     .boys {
       position: absolute;
       bottom: 0;
-      left: 70%;
+      right: 70%;
       width: 28%;
-      transform: translateX(-50%);
+      transform: translateX(50%);
       cursor: pointer;
     }
 
     /* Speech bubble */
     .speech-bubble {
       position: absolute;
-      left: 70%;
+      right: 70%;
       bottom: 39%;
-      transform: translateX(-50%);
+      transform: translateX(50%);
       background: white;
       border: 2px solid #333;
       border-radius: 20px;
@@ -141,17 +141,21 @@
     #completionPopup {
       display: none;
       position: absolute;
-      opacity: 0.9;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
+      background: rgba(255,255,255,0.95);
       border: 2px solid #333;
-      border-radius: 15px;
-      padding: 20px 30px;
+      border-radius: 12px;
+      padding: clamp(12px, 2.5vw, 24px);
       z-index: 10;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       text-align: center;
+      width: 60%;
+      max-width: 520px;
+      max-height: 80%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     #completionPopup p {
@@ -176,18 +180,21 @@
     /* Responsive adjustments */
     @media (max-width: 600px) {
       .input-row input {
-        width: 16vw;
-        font-size: 16px;
-        padding: 5px;
+        /* much smaller on mobile to avoid overlap */
+        width: 10vw;
+        font-size: clamp(6px, 1.8vw, 12px);
+        padding: 3px 4px;
       }
 
+      .input-row { gap: 3%; }
+
       .hint-button, .hint {
-        font-size: 16px;
+        font-size: clamp(10px, 2.2vw, 12px);
       }
 
       .speech-bubble {
-        font-size: 18px;
-        padding: 10px 20px;
+        font-size: 16px;
+        padding: 8px 12px;
         bottom: 34%;
       }
 
@@ -200,7 +207,8 @@
 
       .boys {
         width: 28%;
-        left: 70%;
+        right: 70%;
+        transform: translateX(50%);
       }
     }
   </style>

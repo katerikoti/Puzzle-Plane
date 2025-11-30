@@ -45,20 +45,22 @@
   position: absolute;
   bottom: 3%;
   right: 3%;
-  background: white;
-  border: 0.3% solid #0288d1;
-  padding: 3% 3%;
-  border-radius: 2%;
-  width: 25%;        /* relative width */
-  max-width: 90vw;
-  min-width: 180px;  /* prevent too small */
-  box-shadow: 0 0.3% 0.8% rgba(0,0,0,0.1);
+      background: white;
+      border: 0.3% solid #0288d1;
+      padding: 3% 3%;
+      border-radius: 2%;
+      width: 28%;        /* relative width to the game-window */
+      max-width: 360px;  /* keeps the problem box from growing too large */
+      min-width: 200px;  /* reasonable minimum so content remains readable */
+      box-shadow: 0 0.3% 0.8% rgba(0,0,0,0.1);
   user-select: none;
   text-align: center;
   font-weight: bold;
   z-index: 10;
   box-sizing: border-box;
   font-size: clamp(14px, 1.2vw, 18px);
+      max-height: 70%;
+      overflow: auto;
 }
 
 #problem-text {
@@ -112,12 +114,15 @@
       transform: translate(-50%, -50%);
       background: rgba(255,255,255,0.95);
       border: 2px solid #333;
-      border-radius: 15px;
-      padding: 24px 48px;
+      border-radius: 12px;
+      padding: clamp(12px, 2.5vw, 24px);
       z-index: 10;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       text-align: center;
-      font-size: 18px;
+      width: 60%;
+      max-width: 520px;
+      max-height: 80%;
+      overflow: auto;
     }
 
     #completionPopup p {
@@ -138,16 +143,39 @@
       background-color: #218838;
     }
 
-    /* Responsive adjustments for very small screens */
-    @media (max-width: 400px) {
+    /* Responsive adjustments for small/mobile screens */
+    @media (max-width: 600px) {
       #answer-input {
         width: 50px;
       }
 
+      /* Problem container fixed fraction of the .game-window: slightly larger (24% x 28%)
+        Font scales with vmin and has a slightly larger upper bound for readability. */
       #problem-container {
-        font-size: 14px;
-        padding: 10px 14px;
+        width: 24%;
+        height: 28%;
+        padding: 8px 10px;
+        box-sizing: border-box;
+        /* Scale font with vmin so it follows the box size; allow a larger max size */
+        font-size: clamp(11px, 2.2vmin, 16px);
+        overflow: auto;
+        max-width: none;
+        min-width: 0;
+        max-height: none;
+        min-height: 0;
       }
+
+        /* Ensure problem text and inputs scale relative to the container font-size */
+        #problem-text {
+          font-size: 1em; /* inherits from container */
+          line-height: 1.2;
+        }
+
+        #answer-input {
+          width: 55%; /* larger relative width inside the smaller container */
+          font-size: 0.95em; /* slightly smaller than the label text */
+          padding: 6px 8px;
+        }
 
       #submit-btn {
         font-size: 14px;
@@ -250,6 +278,8 @@
     // Initialize
     setTrainPosition(0);
     showProblem(0);
+
+    // (No JS sizing necessary: #problem-container uses percentages of .game-window)
   </script>
 
 </body>

@@ -69,13 +69,50 @@
     .start-btn:hover {
       background-color: #004d40;
     }
+/* Mobile styles: make game window identical to gg1 (4:3 horizontal) */
+@media (max-width: 600px) {
+  .game-window {
+    width: 95vw;
+    max-width: 800px;
+    aspect-ratio: 4 / 3;     /* same 4:3 horizontal box as gg1 */
+    padding: 0;              /* remove inner padding so outer box matches */
+    min-height: auto;
+    height: auto;
+    overflow: hidden;        /* prevent content from stretching the box */
+    box-sizing: border-box;
+  }
 
+  /* Reduce text so header + paragraph fit horizontally */
+  .game-window h1 {
+    font-size: 0.8rem;       /* smaller than desktop */
+    margin: 8px 0 6px 0;
+  }
+
+  .game-window p {
+    font-size: 0.7rem;
+    margin: 0 0 8px 0;
+  }
+
+  /* Make boys image smaller to fit inside the horizontal box */
+  .boys-container img {
+    width: 70px;
+    height: auto;
+    display: block;
+  }
+
+  /* Slightly smaller start button so it fits in the box */
+  .start-btn {
+    padding: 8px 22px;
+    font-size: 0.95rem;
+    border-radius: 20px;
+  }
+}
     @media (max-width: 500px) {
       .game-window {
         padding: 20px 10px;
       }
       .boys-container img {
-        width: 120px;
+        width: 80px;
       }
     }
   </style>

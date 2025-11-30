@@ -78,19 +78,49 @@
     }
 
     @media (max-width: 500px) {
+      /* Keep the top-left container at the same relative position/size
+         as the desktop layout so it remains visually anchored to the
+         same spot of the game window on all sizes. */
       .top-left-container {
-        width: 80%;
-        max-width: none;
-        left: 10%;
-        top: 5%;
-        padding: 0.7rem;
+        left: 6%;
+        top: 0%;
+        width: 35%;
+        max-width: 280px;
+        padding: 0.5rem;
+        box-sizing: border-box;
       }
+
+      /* Scale text down a little so it fits inside the container on small screens */
       .final-text {
-        font-size: clamp(12px, 4vw, 18px);
+        font-size: clamp(12px, 2.5vw, 18px);
       }
+
+      .links {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 0.4rem;
+        margin-top: 0.4rem;
+        width: 100%;
+        flex-wrap: nowrap; /* try to keep buttons on one line */
+      }
+
       .links a {
-        font-size: clamp(12px, 4vw, 18px);
-        padding: 0.6rem 1rem;
+        font-size: clamp(10px, 2.2vw, 13px);
+        padding: 0.18rem 0.4rem; /* slightly smaller so two buttons fit */
+        background: #f0d1a0;
+        color: #5c4033;
+        border: 2px solid #5c4033;
+        border-radius: 8px;
+        text-align: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        white-space: normal; /* allow wrapping if needed */
+        word-break: break-word;
+        hyphens: auto;
+        min-width: 0;
+        flex: 1 1 48%; /* let buttons share available space */
       }
     }
   </style>

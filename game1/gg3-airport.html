@@ -68,7 +68,7 @@
   background: white;
   border: 2px solid black;
   border-radius: 12px;
-  padding: 12px 16px;
+  padding: 6px 10px;
   max-width: 300px;
   font-size: 1rem;
   color: #333;
@@ -78,29 +78,33 @@
 }
 
 /* Keep the speech bubble tail aligned to the left side */
-.speech-bubble::after {
+.speech-bubble::before {
+  /* outer (shadow/outline) triangle */
   content: "";
   position: absolute;
-  left: -20px;
-  top: 22px;
+  left: -15.5px; /* nudged right */
+  top: 50%;
+  transform: translateY(-50%);
   width: 0;
   height: 0;
   border-top: 12px solid transparent;
   border-bottom: 12px solid transparent;
-  border-right: 20px solid black;
+  border-right: 16px solid black; /* slightly larger outer */
   z-index: 1;
 }
 
-.speech-bubble::before {
+.speech-bubble::after {
+  /* inner (bubble fill) triangle sits above the outer to create a clean point */
   content: "";
   position: absolute;
-  left: -18px;
-  top: 24px;
+  left: -11px; /* nudged right */
+  top: 50%;
+  transform: translateY(-50%);
   width: 0;
   height: 0;
-  border-top: 9px solid transparent;
-  border-bottom: 9px solid transparent;
-  border-right: 18px solid white;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 13px solid white;
   z-index: 2;
 }
 
@@ -121,17 +125,21 @@
     #completionPopup {
       display: none;
       position: absolute;
-      opacity: 0.9;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: white;
+      background: rgba(255,255,255,0.95);
       border: 2px solid #333;
-      border-radius: 15px;
-      padding: 20px 30px;
+      border-radius: 12px;
+      padding: clamp(12px, 2.5vw, 24px);
       z-index: 10;
       box-shadow: 0 0 10px rgba(0,0,0,0.4);
       text-align: center;
+      width: 60%;
+      max-width: 520px;
+      max-height: 80%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     #completionPopup p {
@@ -215,6 +223,21 @@ function markFound(el) {
     function goToNextPage() {
       window.location.href = "gg4-plane.html"; // Update this to relative path
     }
+
+    // Toggle speech bubble when boys container is clicked
+    (function initBoysBubbleToggle(){
+      const boys = document.querySelector('.boys-container');
+      const bubble = document.querySelector('.speech-bubble');
+      if (!boys || !bubble) return;
+      boys.addEventListener('click', () => {
+        const current = window.getComputedStyle(bubble).display;
+        if (current === 'none') {
+          bubble.style.display = 'block';
+        } else {
+          bubble.style.display = 'none';
+        }
+      });
+    })();
   </script>
 
 </body>
